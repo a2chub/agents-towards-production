@@ -1,36 +1,36 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-security-with-qualifire--readme)
 
-# Agent Security with Qualifire
+# Qualifireを使用したエージェントセキュリティ
 
-This tutorial demonstrates how to integrate Qualifire into your AI agent workflows to implement robust guardrails and take preemptive action against common LLM vulnerabilities such as prompt injections, unsafe content, hallucinations, and policy breaches. You will learn how to use both the Gateway and the SDK to protect your agents.
+このチュートリアルでは、QualifireをAIエージェントワークフローに統合し、堅牢なガードレールを実装し、プロンプトインジェクション、安全でないコンテンツ、幻覚、ポリシー違反などの一般的なLLMの脆弱性に対して事前に対策を講じる方法を示します。エージェントを保護するためのGatewayとSDKの両方の使用方法を学びます。
 
 <img src="./assets/freddie-shield.png" width="200px" alt="Qualifire Shield Logo">
 
-## Quick Start
+## クイックスタート
 
-1.  **Sign up for Qualifire:** If you haven't already, sign up at [https://app.qualifire.ai](https://app.qualifire.ai) and obtain your API key.
-2.  **Set up your environment:** Ensure you have Python installed. You will also need to install the necessary packages listed in `requirements.txt` (which will be created as part of the notebook).
-3.  **Open the notebook:** Launch Jupyter Notebook and open `1-agent-security-with-qualifire.ipynb`.
-4.  **Run the cells:** Follow the instructions in the notebook, execute the code cells sequentially.
+1.  **Qualifireにサインアップ:** まだの場合は、[https://app.qualifire.ai](https://app.qualifire.ai)でサインアップしてAPIキーを取得してください。
+2.  **環境をセットアップ:** Pythonがインストールされていることを確認してください。また、`requirements.txt`に記載されている必要なパッケージをインストールする必要があります（ノートブックの一部として作成されます）。
+3.  **ノートブックを開く:** Jupyter Notebookを起動し、`1-agent-security-with-qualifire.ipynb`を開きます。
+4.  **セルを実行:** ノートブックの指示に従い、コードセルを順番に実行します。
 
-## Tutorial Structure
+## チュートリアル構成
 
-The tutorial is provided as a Jupyter notebook (`1-agent-security-with-qualifire.ipynb`) and includes:
+チュートリアルはJupyterノートブック（`1-agent-security-with-qualifire.ipynb`）として提供され、以下を含みます：
 
-- Setting up a basic Streamlit chatbot application with OpenAI GPT-4.1.
-- Integrating using the ** Gateway** to protect LLM calls.
-- Integrating using the ** SDK** for fine-grained control over evaluations.
-- Demonstrating how to detect and handle:
-  - Prompt Injections
-  - Unsafe Content
-  - Hallucinations
-  - Policy Breaches
-- Instructions on how to configure policies and view results in the platform.
+- OpenAI GPT-4.1を使用した基本的なStreamlitチャットボットアプリケーションのセットアップ。
+- LLM呼び出しを保護するための**Gateway**を使用した統合。
+- 評価のきめ細かい制御のための**SDK**を使用した統合。
+- 以下の検出と処理方法のデモンストレーション：
+  - プロンプトインジェクション
+  - 安全でないコンテンツ
+  - 幻覚
+  - ポリシー違反
+- プラットフォームでポリシーを設定し、結果を表示する方法の説明。
 
-## Tutorial Files
+## チュートリアルファイル
 
-📓 **[Tutorial 1: Agent Security with Qualifire](./1-agent-security-with-qualifire.ipynb)**  
-Core tutorial covering Qualifire integration fundamentals, Gateway usage, and SDK implementation for agent security.
+📓 **[チュートリアル1: Qualifireを使用したエージェントセキュリティ](./1-agent-security-with-qualifire.ipynb)**  
+Qualifire統合の基礎、Gatewayの使用方法、エージェントセキュリティのためのSDK実装をカバーするコアチュートリアル。
 
-📓 **[Tutorial 2: Agent Security with Qualifire UI](./2-agent-security-with-qualifire-ui.ipynb)**  
-Extended tutorial focusing on user interface aspects and advanced security implementations.
+📓 **[チュートリアル2: Qualifire UIを使用したエージェントセキュリティ](./2-agent-security-with-qualifire-ui.ipynb)**  
+ユーザーインターフェースの側面と高度なセキュリティ実装に焦点を当てた拡張チュートリアル。
