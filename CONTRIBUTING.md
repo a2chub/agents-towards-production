@@ -1,53 +1,53 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=contributing-guide)
 
-# 🚀 Contributing to Agents Towards Production
+# 🚀 Agents Towards Production への貢献
 
-Thank you for your interest in contributing! This guide will help you understand our standards and make the contribution process smooth.
+貢献にご興味をお持ちいただきありがとうございます！このガイドは、私たちの基準を理解し、貢献プロセスをスムーズにするためのものです。
 
-## 📢 IMPORTANT: Signup and Tracking
+## 📢 重要：サインアップとトラッキング
 
-**If your tutorial requires users to sign up for a service:**
-1. Place signup instructions prominently at the beginning of your tutorial
-2. Provide clear, step-by-step signup guidance
-3. Always use UTM-tagged links for tracking (e.g., `https://service.com/?utm_source=agents-towards-production&utm_medium=github&utm_campaign=tutorial`)
-4. Include screenshots of the signup process if applicable
+**チュートリアルでユーザーがサービスにサインアップする必要がある場合：**
+1. サインアップの手順をチュートリアルの冒頭に目立つように配置する
+2. 明確でステップバイステップのサインアップガイダンスを提供する
+3. トラッキングのために常にUTMタグ付きリンクを使用する（例：`https://service.com/?utm_source=agents-towards-production&utm_medium=github&utm_campaign=tutorial`）
+4. 該当する場合はサインアッププロセスのスクリーンショットを含める
 
-This helps measure the impact of our tutorials and improves the user experience.
+これにより、チュートリアルの影響を測定し、ユーザーエクスペリエンスを向上させることができます。
 
-## 📂 Tutorial Structure
+## 📂 チュートリアルの構造
 
-Each tutorial must be placed in the `tutorials/` directory and follow these naming and structure rules:
+各チュートリアルは`tutorials/`ディレクトリに配置し、以下の命名規則と構造ルールに従う必要があります：
 
-### Folder Naming
-- Use lowercase letters
-- Separate words with hyphens
-- Example: `agent-with-your-tool-name`
+### フォルダの命名規則
+- 小文字を使用する
+- 単語はハイフンで区切る
+- 例：`agent-with-your-tool-name`
 
-### Required Files
-Each tutorial folder should contain:
+### 必須ファイル
+各チュートリアルフォルダには以下を含める必要があります：
 
-1. **Documentation** (one of the following):
-   - a Jupyter notebook (`.ipynb`) - Interactive step-by-step guide
-   - OR `tutorial.md` - Step-by-step integration guide
+1. **ドキュメント**（以下のいずれか）：
+   - Jupyterノートブック（`.ipynb`） - インタラクティブなステップバイステップガイド
+   - または `tutorial.md` - ステップバイステップの統合ガイド
     
 
-2. **Working Implementation Code** (Recommended):
-   - `app.py` - Main application code (well-commented implementation)
-   - OR equivalent main file with appropriate name
-   - OR web-based application files (e.g., `index.html`, `main.js`) that can be run in a browser
+2. **動作する実装コード**（推奨）：
+   - `app.py` - メインアプリケーションコード（適切にコメントされた実装）
+   - または適切な名前の同等のメインファイル
+   - またはブラウザで実行できるWebベースのアプリケーションファイル（例：`index.html`、`main.js`）
 
-3. **Dependencies**:
+3. **依存関係**：
    - `requirements.txt`
-     - All necessary dependencies
-     - Specific versions recommended
-     - Only required packages
+     - 必要なすべての依存関係
+     - 特定のバージョンを推奨
+     - 必要なパッケージのみ
 
-4. **Additional Resources** (Optional but recommended):
-   - `README.md` - Brief overview and quick start instructions
-   - `assets/` folder for images, videos, and other media
+4. **追加リソース**（オプションだが推奨）：
+   - `README.md` - 簡潔な概要とクイックスタート手順
+   - `assets/` フォルダ - 画像、動画、その他のメディア用
 
-### Example Tutorial Structure
-Our existing `agent-with-streamlit-ui` tutorial demonstrates a good structure:
+### チュートリアル構造の例
+既存の`agent-with-streamlit-ui`チュートリアルが良い構造を示しています：
 
 ```
 tutorials/
@@ -60,84 +60,84 @@ tutorials/
         └── streamlit_chatbot_video.mp4  # Demo video
 ```
 
-## 📝 Notebook Structure
+## 📝 ノートブックの構造
 
-For new notebooks or significant additions to existing ones, please follow this structure:
+新しいノートブックまたは既存のノートブックへの重要な追加については、以下の構造に従ってください：
 
-1. **Title and Overview:** Clear title and brief overview of the technique.
+1. **タイトルと概要：** 明確なタイトルと技術の簡潔な概要。
 
-2. **Detailed Explanation:** Cover motivation, key components, method details, and benefits.
+2. **詳細な説明：** 動機、主要コンポーネント、メソッドの詳細、利点をカバー。
 
-3. **Visual Representation:** Include a diagram to visualize the technique. We recommend using Mermaid syntax for creating these diagrams:
+3. **視覚的表現：** 技術を視覚化するダイアグラムを含める。これらのダイアグラムの作成にはMermaid構文の使用を推奨します：
 
-   * Create a graph using Mermaid's graph TD (top-down) syntax
-   * You can use Claude or other AI assistants to help you design the graph if needed
-   * Paste your Mermaid code into [Mermaid Live Editor](https://mermaid.live/)
-   * In the "Actions" tab of Mermaid Live Editor, download the SVG file of your diagram
-   * Store the SVG file in the `assets/` folder within your tutorial directory (e.g., `tutorials/your-tutorial-name/assets/`)
-   * Use an appropriate, descriptive name for the file
-   * In your notebook, display the image using Markdown syntax:
+   * Mermaidのgraph TD（トップダウン）構文を使用してグラフを作成
+   * 必要に応じて、Claudeやその他のAIアシスタントを使用してグラフのデザインを支援
+   * Mermaidコードを[Mermaid Live Editor](https://mermaid.live/)に貼り付け
+   * Mermaid Live Editorの「Actions」タブで、ダイアグラムのSVGファイルをダウンロード
+   * SVGファイルをチュートリアルディレクトリ内の`assets/`フォルダに保存（例：`tutorials/your-tutorial-name/assets/`）
+   * ファイルには適切で説明的な名前を使用
+   * ノートブックでは、Markdown構文を使用して画像を表示：
      ```markdown
      ![Your Technique Name](./assets/your-technique-name.svg)
      ```
 
-   This process ensures consistency in our visual representations and makes it easy for others to understand and potentially modify the diagrams in the future.
+   このプロセスにより、視覚的表現の一貫性が確保され、他の人が将来的にダイアグラムを理解し、潜在的に修正することが容易になります。
 
-4. **Implementation:** Step-by-step Python implementation with clear comments and explanations.
+4. **実装：** 明確なコメントと説明を含むステップバイステップのPython実装。
 
-5. **Usage Example:** Demonstrate the technique with a practical example.
+5. **使用例：** 実用的な例で技術を実証。
 
-6. **External Tool Integration:** If demonstrating external tool use or website interactions, provide step-by-step screenshots of each action. Place these screenshots in the assets folder and ensure they clearly show the process flow.
+6. **外部ツール統合：** 外部ツールの使用やWebサイトとのインタラクションを実証する場合は、各アクションのステップバイステップのスクリーンショットを提供。これらのスクリーンショットをassetsフォルダに配置し、プロセスフローが明確に表示されるようにする。
 
-7. **Additional Considerations:** Discuss limitations, potential improvements, or specific use cases.
+7. **追加の考慮事項：** 制限事項、潜在的な改善点、または特定のユースケースについて議論。
 
-## ✨ Notebook Best Practices
+## ✨ ノートブックのベストプラクティス
 
-To ensure consistency and readability across all notebooks:
+すべてのノートブックで一貫性と可読性を確保するために：
 
-1. **Code Cell Descriptions:** Each code cell should be preceded by a markdown cell with a clear, concise title describing the cell's content or purpose.
+1. **コードセルの説明：** 各コードセルの前には、セルの内容や目的を説明する明確で簡潔なタイトルを含むマークダウンセルを配置する。
 
-2. **Clear Unnecessary Outputs:** Before committing your notebook, clear all unnecessary cell outputs. This helps reduce file size and avoids confusion from outdated results.
+2. **不要な出力のクリア：** ノートブックをコミットする前に、すべての不要なセル出力をクリアする。これにより、ファイルサイズが削減され、古い結果による混乱が回避される。
 
-3. **Consistent Formatting:** Maintain consistent formatting throughout the notebook, including regular use of markdown headers, code comments, and proper indentation.
+3. **一貫したフォーマット：** マークダウンヘッダー、コードコメント、適切なインデントの定期的な使用を含め、ノートブック全体で一貫したフォーマットを維持する。
 
-## 💻 Code Quality and Readability
+## 💻 コード品質と可読性
 
-To ensure the highest quality and readability of our code:
+コードの最高品質と可読性を確保するために：
 
-1. **Write Clean Code:** Follow best practices for clean, readable code.
-2. **Use Comments:** Add clear and concise comments to explain complex logic.
-3. **Format Your Code:** Use consistent formatting throughout your contribution.
-4. **Language Model Review:** After completing your code, consider passing it through a language model for additional formatting and readability improvements. This extra step can help make your code even more accessible and maintainable.
+1. **クリーンなコードを書く：** クリーンで読みやすいコードのベストプラクティスに従う。
+2. **コメントを使用する：** 複雑なロジックを説明するために明確で簡潔なコメントを追加する。
+3. **コードをフォーマットする：** 貢献全体で一貫したフォーマットを使用する。
+4. **言語モデルレビュー：** コードを完成させた後、追加のフォーマットと可読性の改善のために言語モデルを通すことを検討する。この追加ステップにより、コードをさらにアクセスしやすく、保守しやすくすることができる。
 
-## 📚 Documentation
+## 📚 ドキュメント
 
-Clear documentation is crucial. Whether you're improving existing docs or adding new ones, follow this process:
+明確なドキュメントは重要です。既存のドキュメントを改善する場合でも、新しいドキュメントを追加する場合でも、以下のプロセスに従ってください：
 
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/AmazingFeature`
-3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
-4. Push to the branch: `git push origin feature/AmazingFeature`
-5. Open a pull request
+1. リポジトリをフォークする
+2. フィーチャーブランチを作成する：`git checkout -b feature/AmazingFeature`
+3. 変更をコミットする：`git commit -m 'Add some AmazingFeature'`
+4. ブランチにプッシュする：`git push origin feature/AmazingFeature`
+5. プルリクエストを開く
 
-## ✅ Pre-PR Checklist
+## ✅ PR前チェックリスト
 
-Before submitting your PR, ensure:
+PRを提出する前に、以下を確認してください：
 
-- [ ] Tutorial follows the required structure
-- [ ] All required files are present
-- [ ] Code runs without errors
-- [ ] Dependencies are listed in requirements.txt with appropriate versions
-- [ ] Documentation is clear and complete
-- [ ] No sensitive information included (like API keys)
-- [ ] Code is well-commented
-- [ ] Tutorial is self-contained
-- [ ] Uses current library versions (e.g., OpenAI v1+ client)
+- [ ] チュートリアルが必要な構造に従っている
+- [ ] すべての必須ファイルが存在する
+- [ ] コードがエラーなく実行される
+- [ ] 依存関係が適切なバージョンでrequirements.txtにリストされている
+- [ ] ドキュメントが明確で完全である
+- [ ] 機密情報（APIキーなど）が含まれていない
+- [ ] コードに適切なコメントが付けられている
+- [ ] チュートリアルが自己完結している
+- [ ] 現在のライブラリバージョンを使用している（例：OpenAI v1+クライアント）
 
-## 🎯 Final Notes
+## 🎯 最後に
 
-We're grateful for all our contributors and excited to see how you'll help expand the world's most comprehensive resource for production-ready AI agents. Don't hesitate to ask questions if you're unsure about anything.
+すべての貢献者に感謝し、プロダクション対応AIエージェントのための世界で最も包括的なリソースを拡張するのにどのように貢献していただけるか楽しみにしています。何か不明な点があれば、遠慮なく質問してください。
 
-Let's harness our collective knowledge and creativity to push the boundaries of AI agent technology together!
+私たちの集合的な知識と創造性を活用して、AIエージェント技術の境界を一緒に押し広げましょう！
 
-**Happy contributing!** 🚀
+**素晴らしい貢献を！** 🚀
