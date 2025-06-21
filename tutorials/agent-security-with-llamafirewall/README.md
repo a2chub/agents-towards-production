@@ -1,122 +1,122 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-security-with-llamafirewall--readme)
 
-# LlamaFirewall For AI Agents Security Tutorial
+# AIエージェントセキュリティのためのLlamaFirewallチュートリアル
 
-A comprehensive tutorial demonstrating how to implement security measures for AI agents using LlamaFirewall.
+LlamaFirewallを使用してAIエージェントのセキュリティ対策を実装する方法を示す包括的なチュートリアルです。
 
-## Authors
-This tutorial was created by [Matan Kotick](https://www.linkedin.com/in/matan-kotick-664735252) and [Amit Ziv](https://www.linkedin.com/in/amit-ziv-49690b120).
+## 著者
+このチュートリアルは[Matan Kotick](https://www.linkedin.com/in/matan-kotick-664735252)と[Amit Ziv](https://www.linkedin.com/in/amit-ziv-49690b120)によって作成されました。
 
-## Understanding Agent Security Risks
+## エージェントセキュリティリスクの理解
 
-AI agents face significant security challenges across three main attack surfaces:
+AIエージェントは、3つの主要な攻撃面にわたって重大なセキュリティ上の課題に直面しています：
 
-### Input Security
-- **Prompt Injection**: Attempts to override agent instructions
-- **Harmful Content**: Detection of inappropriate or dangerous inputs
-- **Context Manipulation**: Prevention of memory/context tampering
+### 入力セキュリティ
+- **プロンプトインジェクション**: エージェントの命令を上書きしようとする試み
+- **有害コンテンツ**: 不適切または危険な入力の検出
+- **コンテキスト操作**: メモリ/コンテキストの改ざん防止
 
-### Output Security
-- **Behavior Alignment**: Ensuring responses match intended purpose
-- **Content Safety**: Preventing harmful or misleading outputs
-- **Information Control**: Managing sensitive data disclosure
+### 出力セキュリティ
+- **動作アラインメント**: 応答が意図した目的に一致することを確保
+- **コンテンツの安全性**: 有害または誤解を招く出力の防止
+- **情報管理**: 機密データの開示管理
 
-### Tool Security
-- **Access Control**: Preventing unauthorized tool usage
-- **Usage Monitoring**: Detecting malicious tool manipulation
-- **Resource Protection**: Preventing system abuse
+### ツールセキュリティ
+- **アクセス制御**: 無許可のツール使用の防止
+- **使用監視**: 悪意のあるツール操作の検出
+- **リソース保護**: システム乱用の防止
 
-These vulnerabilities can lead to security breaches, misuse of resources, and potential harm to users or systems. This tutorial demonstrates how to address these challenges using LlamaFirewall.
+これらの脆弱性は、セキュリティ違反、リソースの不正使用、ユーザーやシステムへの潜在的な害につながる可能性があります。このチュートリアルでは、LlamaFirewallを使用してこれらの課題に対処する方法を示します。
 
-**Note**: Additional attack surfaces may exist depending on the agent's implementation and deployment context. For example, supply chain risks around model sources, training data, and third-party tools must be considered. Infrastructure security for model hosting and API endpoints, as well as compliance requirements for audit logging and policy enforcement, are also critical concerns that should be addressed as part of a comprehensive security strategy.
+**注**: エージェントの実装とデプロイメントコンテキストに応じて、追加の攻撃面が存在する可能性があります。例えば、モデルソース、トレーニングデータ、サードパーティツールに関するサプライチェーンリスクを考慮する必要があります。モデルホスティングとAPIエンドポイントのインフラストラクチャセキュリティ、および監査ログとポリシー強制のコンプライアンス要件も、包括的なセキュリティ戦略の一部として対処すべき重要な懸念事項です。
 
 
 
-## About This Tutorial
+## このチュートリアルについて
 
-This tutorial demonstrates how to implement security measures using LlamaFirewall, an open-source security framework. While the examples are not production-ready code, they illustrate key security concepts that can be adapted for real-world applications.
+このチュートリアルでは、オープンソースセキュリティフレームワークLlamaFirewallを使用してセキュリティ対策を実装する方法を示します。例はプロダクション対応コードではありませんが、実世界のアプリケーションに適応できる主要なセキュリティ概念を示しています。
 
-### What is LlamaFirewall?
+### LlamaFirewallとは？
 
-LlamaFirewall is a comprehensive open-source security framework designed to protect AI agents from various threats. It provides three main guardrails:
+LlamaFirewallは、AIエージェントを様々な脅威から保護するように設計された包括的なオープンソースセキュリティフレームワークです。3つの主要なガードレールを提供します：
 
-1. **PromptGuard 2**: Protects against prompt injection attacks
-2. **Agent Alignment Checks**: Ensures agent behavior aligns with intended instructions
-3. **CodeShield**: Prevents generation of harmful or malicious code
+1. **PromptGuard 2**: プロンプトインジェクション攻撃から保護
+2. **Agent Alignment Checks**: エージェントの動作が意図した命令に一致することを確保
+3. **CodeShield**: 有害または悪意のあるコードの生成を防止
 
-## Tutorials
+## チュートリアル
 
-This repository contains several Jupyter notebooks demonstrating how to implement security concepts for AI agents using LlamaFirewall:
+このリポジトリには、LlamaFirewallを使用してAIエージェントのセキュリティ概念を実装する方法を示すいくつかのJupyterノートブックが含まれています：
 
-- Input validation to protect against malicious prompts and harmful content
-- Output validation to ensure agent responses align with intended behavior
-- Tool calling security to prevent unauthorized or dangerous actions
+- 悪意のあるプロンプトや有害コンテンツから保護するための入力検証
+- エージェントの応答が意図した動作に一致することを確保するための出力検証
+- 無許可または危険なアクションを防止するためのツール呼び出しセキュリティ
 
-While these tutorials use the OpenAI Agents SDK, the security concepts can be applied to any AI agent platform.
+これらのチュートリアルはOpenAI Agents SDKを使用していますが、セキュリティ概念はどのAIエージェントプラットフォームにも適用できます。
 
-1. [Hello Llama](hello-llama.ipynb) - Demonstrates basic message scanning to detect and block potentially harmful content.
-2. [Input Guardrail](input-guardrail.ipynb) - Shows how to validate user inputs to protect against malicious prompts.
-3. [Output Guardrail](output-guardrail.ipynb) - Illustrates how to validate AI agent responses to ensure they align with intended behavior and don't contain harmful content
-4. [Tools Security](tools-security.ipynb) - Covers comprehensive security for AI agent tools, including input validation, output scanning, and protection against external tool usage
+1. [Hello Llama](hello-llama.ipynb) - 潜在的に有害なコンテンツを検出してブロックする基本的なメッセージスキャンを実演。
+2. [Input Guardrail](input-guardrail.ipynb) - 悪意のあるプロンプトから保護するためのユーザー入力検証方法を示す。
+3. [Output Guardrail](output-guardrail.ipynb) - AIエージェントの応答が意図した動作に一致し、有害コンテンツを含まないことを確保するための検証方法を説明。
+4. [Tools Security](tools-security.ipynb) - 入力検証、出力スキャン、外部ツール使用からの保護を含むAIエージェントツールの包括的セキュリティをカバー。
 
-## Prerequisites
+## 前提条件
 
-### System Requirements
+### システム要件
 - Python 3.9+
-- OpenAI API key
-- Required packages (see requirements.txt)
-- ~2GB of disk space for model downloads
+- OpenAI APIキー
+- 必要パッケージ（requirements.txt参照）
+- モデルダウンロード用に約2GBのディスク容量
 
-### Model Requirements
-LlamaFirewall uses HuggingFace models that require access permissions:
-- Models are downloaded to `~/.cache/huggingface` by default
-- Models are cached locally after first download
-- **Important**: The Llama Prompt Guard 2 model requires explicit access permission
+### モデル要件
+LlamaFirewallはアクセス許可が必要なHuggingFaceモデルを使用します：
+- モデルはデフォルトで`~/.cache/huggingface`にダウンロードされます
+- モデルは初回ダウンロード後にローカルにキャッシュされます
+- **重要**: Llama Prompt Guard 2モデルは明示的なアクセス許可が必要です
 
-### API Keys
-- **OpenAI API key** (required for the agent)
-- **Together API key** (required for Alignment Checker scanner)
-  - Get it from [Together AI](https://www.together.ai)
-  - Required for `output_guardrail`
+### APIキー
+- **OpenAI APIキー** （エージェントに必要）
+- **Together APIキー** （Alignment Checkerスキャナーに必要）
+  - [Together AI](https://www.together.ai)から取得
+  - `output_guardrail`に必要
 
-## Installation
+## インストール
 
-1. Clone this repository
-2. Install dependencies:
+1. このリポジトリをクロン
+2. 依存関係をインストール：
    ```bash
    pip install -r requirements.txt
    ```
-3. Create a `.env` file with your API keys:
+3. APIキーを含む`.env`ファイルを作成：
    ```
    OPENAI_API_KEY=your_openai_api_key_here
-   TOGETHER_API_KEY=your_together_api_key_here    # Required for Alignment Checker scanner
+   TOGETHER_API_KEY=your_together_api_key_here    # Alignment Checkerスキャナーに必要
    ```
 
-4. Set up HuggingFace access:
-   1. Create a HuggingFace account
-   2. Request access to [Llama Prompt Guard 2](https://huggingface.co/meta-llama/Llama-Prompt-Guard-2-86M):
-      - Click "Access repository"
-      - Provide your legal name, DOB, and organization
-      - Accept the Llama 4 Community License
-   3. Create a read access token in Settings
-   4. Enter token when prompted on first run
+4. HuggingFaceアクセスの設定：
+   1. HuggingFaceアカウントを作成
+   2. [Llama Prompt Guard 2](https://huggingface.co/meta-llama/Llama-Prompt-Guard-2-86M)へのアクセスをリクエスト：
+      - "Access repository"をクリック
+      - 法的名前、生年月日、組織を提供
+      - Llama 4 Community Licenseを承認
+   3. Settingsで読み取りアクセストークンを作成
+   4. 初回実行時にプロンプトが表示されたらトークンを入力
 
-5. Run `llamafirewall configure` for:
-    1. Check if required models are available locally
-    2. Help you download models from HuggingFace if they are not available
-    3. Check if your environment has the required api key for certain scanners 
+5. `llamafirewall configure`を実行して：
+    1. 必要なモデルがローカルに利用可能か確認
+    2. 利用可能でない場合はHuggingFaceからモデルのダウンロードを支援
+    3. 特定のスキャナーに必要なAPIキーが環境にあるか確認 
 
-**Note:** This tutorial uses HuggingFace models, which will be downloaded to `~/.cache/huggingface`.
+**注:** このチュートリアルはHuggingFaceモデルを使用し、`~/.cache/huggingface`にダウンロードされます。
 
-## Monitoring
+## モニタリング
 
-This tutorial uses the OpenAI Agents SDK, which provides comprehensive monitoring and tracing capabilities through the OpenAI dashboard. All agent activities, including guardrail invocations, are automatically logged and can be monitored in real-time.
+このチュートリアルはOpenAI Agents SDKを使用しており、OpenAIダッシュボードを通じて包括的なモニタリングとトレーシング機能を提供します。ガードレールの呼び出しを含むすべてのエージェントアクティビティが自動的に記録され、リアルタイムでモニタリングできます。
 
-### Dashboard Access
-- Log into your [OpenAI account dashboard](https://platform.openai.com/)
-- Navigate to "Dashboard" section
-- View detailed traces of agent interactions and guardrail checks
+### ダッシュボードアクセス
+- [OpenAIアカウントダッシュボード](https://platform.openai.com/)にログイン
+- "Dashboard"セクションに移動
+- エージェントインタラクションとガードレールチェックの詳細なトレースを表示
 
 ![OpenAI Dashboard showing LlamaFirewall guardrail invocation](assets/openai-trace.png)
 
-This monitoring capability helps ensure transparency and allows you to verify that the guardrails are working as intended.
+このモニタリング機能は透明性を確保し、ガードレールが意図したとおりに機能していることを確認できるようにします。
