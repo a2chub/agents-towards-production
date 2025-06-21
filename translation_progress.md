@@ -4,10 +4,10 @@
 
 ## 進捗サマリー
 - 総ファイル数: 41
-- 完了: 8
+- 完了: 9
 - 進行中: 0
-- 未着手: 33
-- 進捗率: 19.5%
+- 未着手: 32
+- 進捗率: 22.0%
 
 ## ファイル別進捗状況
 
@@ -26,7 +26,7 @@
 | tutorials/agent-security-apex/README.md | 完了 | 2025-06-21 | 2025-06-21 | セキュリティ評価チュートリアル翻訳完了 |
 | tutorials/agent-security-with-llamafirewall/README.md | 完了 | 2025-06-21 | 2025-06-21 | LlamaFirewallセキュリティチュートリアル翻訳完了 |
 | tutorials/agent-security-with-qualifire/README.md | 完了 | 2025-06-21 | 2025-06-21 | Qualifireセキュリティチュートリアル翻訳完了 |
-| tutorials/agent-with-tavily-web-access/README.md | 未着手 | - | - | - |
+| tutorials/agent-with-tavily-web-access/README.md | 完了 | 2025-06-21 | 2025-06-21 | Tavilyウェブアクセスチュートリアル翻訳完了 |
 | tutorials/agentic-applications-by-xpander.ai/README.md | 未着手 | - | - | - |
 | tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/full-app/README.md | 未着手 | - | - | - |
 | tutorials/docker-intro/README.md | 未着手 | - | - | - |

@@ -1,23 +1,23 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-with-tavily-web-access--readme)
 
-# Supercharge Your Agent with Web Access Using Tavily
+# Tavilyを使用したウェブアクセスでエージェントを強化
 
 
-## Overview
+## 概要
 
-This tutorial series is designed for Python developers who want to empower their AI agents with real-time web access, enabling agents to utilize up-to-date information as context. Live web information is critical for AI agents tasked with performing research, answering questions accurately, monitoring trends, or providing up-to-date recommendations. You'll learn how to build AI agents that search the web, extract valuable content, navigate websites intelligently, and integrate real-time web information into private knowledge bases. 
+このチュートリアルシリーズは、AIエージェントにリアルタイムウェブアクセスを提供し、エージェントが最新情報をコンテキストとして活用できるようにしたいPython開発者向けに設計されています。ライブウェブ情報は、リサーチの実行、正確な質問への回答、トレンドの監視、最新の推奨事項の提供を任されたAIエージェントにとって重要です。ウェブを検索し、価値あるコンテンツを抽出し、ウェブサイトをインテリジェントにナビゲートし、リアルタイムウェブ情報をプライベートナレッジベースに統合するAIエージェントの構築方法を学びます。 
 
-## Agenda
+## アジェンダ
 
-This tutorial series follows a step-by-step learning path with three stand-alone tutorials:
-1. In [tutorial #1](./search-extract-crawl.ipynb), we'll cover the **basics of web access**.
+このチュートリアルシリーズは、3つの独立したチュートリアルで構成されたステップバイステップの学習パスに従います：
+1. [チュートリアル#1](./search-extract-crawl.ipynb)では、**ウェブアクセスの基本**をカバーします。
 
-2. In [tutorial #2](./web-agent-tutorial.ipynb), we'll **build a web agent** that can search, scrape, and crawl the web.
+2. [チュートリアル#2](./web-agent-tutorial.ipynb)では、ウェブを検索、スクレイプ、クロールできる**ウェブエージェントを構築**します。
 
-3. Finally, In [tutorial #3](./hybrid-agent-tutorial.ipynb), we'll develop a system that **combines real-time web information with private knowledge base data**.
+3. 最後に、[チュートリアル#3](./hybrid-agent-tutorial.ipynb)では、**リアルタイムウェブ情報とプライベートナレッジベースデータを組み合わせた**システムを開発します。
 
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
 📁 agent-with-tavily-web-access/
