@@ -1,38 +1,38 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-observability-with-qualifire--readme)
 
-# Agent observability with Qualifire 🔥
+# Qualifireを使用したエージェントの可観測性 🔥
 
-This tutorial demonstrates how to integrate Qualifire into your AI agent workflows to gain full logging, tracing, and insights using OpenTelemetry. By the end of this tutorial, you will be able to monitor your LangGraph agent's operations and understand its behavior.
+このチュートリアルでは、QualifireをAIエージェントワークフローに統合し、OpenTelemetryを使用して完全なログ収集、トレーシング、インサイトを取得する方法を示します。このチュートリアルを終えると、LangGraphエージェントの操作を監視し、その動作を理解できるようになります。
 
 <img src="./assets/freddie-observer.png" alt="Freddie Observer" width="200px">
 
-This notebook walks you through integrating Qualifire with a LanGraph agent to achieve comprehensive observability, including logging, tracing, and insights via OpenTelemetry.
+このノートブックでは、QualifireをLangGraphエージェントと統合し、OpenTelemetryを介したログ収集、トレーシング、インサイトを含む包括的な可観測性を実現する方法を説明します。
 
-## Overview
+## 概要
 
-Modern AI applications increasingly rely on sophisticated, multi-step AI agents. These agents often involve multiple LLM calls, interactions with various tools, and complex decision-making processes. Gaining clear visibility into these intricate workflows is a significant challenge. On top of all of that you might also encounter hallucinations, poor tool selection quality and other AI related risks.
+現代のAIアプリケーションは、洗練されたマルチステップAIエージェントにますます依存しています。これらのエージェントは、多くの場合、複数のLLM呼び出し、様々なツールとの相互作用、複雑な意思決定プロセスを含んでいます。これらの複雑なワークフローに明確な可視性を確保することは大きな課題です。さらに、幻覚、ツール選択の品質低下、その他のAI関連のリスクにも直面する可能性があります。
 
-## Why Qualifire for Agent Observability?
+## エージェントの可観測性になぜQualifireを使うのか？
 
-- **End-to-End Tracing**: Track every step of your agent's execution, from initial prompt to final output
-- **Real-Time Monitoring**: Get immediate insights into your agent's performance and behavior
-- **Debug & Troubleshoot**: Quickly identify and resolve issues in your agent's decision-making process
-- **Quality Assurance**: Monitor for hallucinations and ensure high-quality tool selection
-- **OpenTelemetry Integration**: Leverage industry-standard observability practices
+- **エンドツーエンドトレーシング**: 初期プロンプトから最終出力まで、エージェントの実行のすべてのステップを追跡
+- **リアルタイムモニタリング**: エージェントのパフォーマンスと動作に関する即座のインサイトを取得
+- **デバッグとトラブルシューティング**: エージェントの意思決定プロセスの問題を素早く特定・解決
+- **品質保証**: 幻覚を監視し、高品質なツール選択を確保
+- **OpenTelemetry統合**: 業界標準の可観測性実践を活用
 
-## Key Methods
+## 主要な手法
 
-1. **Tracing Setup**: Implement distributed tracing to track agent workflows
-2. **Logging Integration**: Capture detailed logs of agent operations
-3. **Performance Monitoring**: Track response times and resource usage
-4. **Quality Metrics**: Measure and monitor agent decision quality
+1. **トレーシングセットアップ**: エージェントワークフローを追跡するための分散トレーシングを実装
+2. **ログ統合**: エージェント操作の詳細なログをキャプチャ
+3. **パフォーマンスモニタリング**: 応答時間とリソース使用状況を追跡
+4. **品質メトリクス**: エージェントの意思決定品質を測定・監視
 
-## What you will learn
+## 学習内容
 
-1. Setup tracing and observability in your LangGraph agent
-2. Debug and troubleshoot your agent
-3. Get real-time agent observability using Qualifire
+1. LangGraphエージェントでトレーシングと可観測性をセットアップ
+2. エージェントのデバッグとトラブルシューティング
+3. Qualifireを使用したリアルタイムエージェント可観測性の取得
 
-## 📚 Tutorial
+## 📚 チュートリアル
 
-**[Start the hands-on tutorial here: agent-observability-with-qualifire.ipynb](./agent-observability-with-qualifire.ipynb)**
+**[ハンズオンチュートリアルを始める： agent-observability-with-qualifire.ipynb](./agent-observability-with-qualifire.ipynb)**
