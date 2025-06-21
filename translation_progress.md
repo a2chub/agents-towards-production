@@ -21,7 +21,7 @@
 ### チュートリアルREADMEファイル（優先度：中）
 | ファイル | ステータス | 開始日時 | 完了日時 | 備考 |
 |---------|-----------|---------|---------|------|
-| tutorials/agent-memory-with-redis/README.md | 未着手 | - | - | - |
+| tutorials/agent-memory-with-redis/README.md | 完了 | 2025-06-21 | 2025-06-21 | Redis使用エージェントメモリチュートリアル翻訳完了 |
 | tutorials/agent-observability-with-qualifire/README.md | 未着手 | - | - | - |
 | tutorials/agent-security-apex/README.md | 未着手 | - | - | - |
 | tutorials/agent-security-with-llamafirewall/README.md | 未着手 | - | - | - |

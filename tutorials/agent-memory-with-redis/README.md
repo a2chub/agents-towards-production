@@ -1,37 +1,37 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-memory-with-redis--readme)
 
-# 🧠 Agent Memory with Redis
+# 🧠 Redisを使用したエージェントメモリ
 
-Build a **memory-enabled AI agent** that remembers user preferences and learns from conversations using Redis and LangGraph.
+RedisとLangGraphを使用して、ユーザーの好みを記憶し、会話から学習する**メモリ機能付きAIエージェント**を構築します。
 
-## 🎯 What You'll Learn
+## 🎯 学習内容
 
-The goal of this tutorial is to empower you with a **horizontal concept** that you can apply to your own agent use cases.
+このチュートリアルの目的は、あなた自身のエージェントのユースケースに適用できる**水平的な概念**を提供することです。
 
-- **Dual-Memory Architecture**: Implement short-term (conversation state) and long-term (persistent knowledge) memory
-- **Semantic Search**: Use RedisVL for semantic memory retrieval with embeddings
-- **Memory Types**: Understand differences between episodic (user experiences) vs semantic (general knowledge) memory patterns
-- **Production Patterns**: Tool-based memory management and conversation summarization
-- **LangGraph Integration**: Build complete workflows with Redis checkpointers for state persistence
+- **デュアルメモリアーキテクチャ**: 短期（会話状態）と長期（永続的な知識）メモリの実装
+- **セマンティック検索**: 埋め込みを使用したセマンティックメモリ検索のためのRedisVLの使用
+- **メモリタイプ**: エピソード（ユーザー体験）とセマンティック（一般知識）メモリパターンの違いを理解
+- **プロダクションパターン**: ツールベースのメモリ管理と会話の要約
+- **LangGraph統合**: 状態永続化のためのRedisチェックポインターを使用した完全なワークフローの構築
 
 
-## 🚀 Run in Google Colab
+## 🚀 Google Colabで実行
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NirDiamant/agents-towards-production/blob/main/tutorials/agent-memory-with-redis/agent_memory_tutorial.ipynb)
 
 
-## 📋 Requirements
+## 📋 必要条件
 
-- **OpenAI API Key** (with billing enabled)
-- **Redis** optionally installed in Colab, or use [Redis Cloud](https://redis.io/try-free/?utm_source=nir&utm_medium=cpa&utm_campaign=2025-05-ai_in_production-influencer-nir&utm_content=sd-software_download-7013z000001WaRY)
+- **OpenAI API Key** (課金有効化済み)
+- **Redis** Colabにオプションでインストール、または[Redis Cloud](https://redis.io/try-free/?utm_source=nir&utm_medium=cpa&utm_campaign=2025-05-ai_in_production-influencer-nir&utm_content=sd-software_download-7013z000001WaRY)を使用
 
-## 🎓 What You'll Build
+## 🎓 構築するもの
 
-A travel agent that:
-- Remembers user preferences across conversations
-- Stores long term memories ("I prefer Delta airlines") 
-- Provides personalized recommendations based on past interactions
-- Manages conversation context automatically
+以下の機能を持つ旅行エージェント：
+- 会話をまたいでユーザーの好みを記憶
+- 長期メモリの保存（「私はDelta航空を好みます」）
+- 過去のやり取りに基づいたパーソナライズされた推奨を提供
+- 会話コンテキストを自動管理
 
-**Total Tutorial Time**: ~30-45 minutes  
-**Difficulty**: Intermediate (Python, LangGraph, Tool calling, other basic AI concepts)
+**チュートリアル所要時間**: 約30-45分  
+**難易度**: 中級（Python、LangGraph、Tool calling、その他基本的なAI概念）
