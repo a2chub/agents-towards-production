@@ -1,50 +1,50 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agent-security-apex--readme)
 
-# Agent Security Evaluation Tutorial
+# エージェントセキュリティ評価チュートリアル
 
-## Overview
+## 概要
 
-This tutorial teaches prompt injection attacks and defenses through hands-on security testing of AI systems. Instead of just reading about vulnerabilities, you'll actually exploit them and then build protections against them.
+このチュートリアルでは、AIシステムの実践的なセキュリティテストを通じて、プロンプトインジェクション攻撃と防御を学びます。脆弱性について読むだけでなく、実際にそれらを悪用し、その後それらに対する保護を構築します。
 
-## What's included
+## 含まれるもの
 
-**Attack techniques**: Learn 8 major types of prompt injection attacks, from direct instruction override to sophisticated encoding-based bypasses.
+**攻撃テクニック**: 直接的な命令の上書きから洗練されたエンコーディングベースのバイパスまで、8つの主要なプロンプトインジェクション攻撃の種類を学習。
 
-**Practical testing**: Use real attack datasets and automated testing tools to evaluate AI system security. Includes 91 documented attack examples from security research.
+**実践的テスト**: 実際の攻撃データセットと自動テストツールを使用してAIシステムのセキュリティを評価。セキュリティ研究からの91の文書化された攻撃例を含む。
 
-**Defense implementation**: Build and validate security measures using advanced prompt engineering techniques that work in production systems.
+**防御実装**: プロダクションシステムで機能する高度なプロンプトエンジニアリング技術を使用してセキュリティ対策を構築・検証。
 
-**Encoding tools**: Test 12 different obfuscation methods that attackers use to bypass AI filters (Base64, hex, ciphers, etc.).
+**エンコーディングツール**: 攻撃者がAIフィルターを回避するために使用する12種類の難読化手法（Base64、16進数、暗号など）をテスト。
 
-## What you'll learn
+## 学習内容
 
-- How to identify and execute prompt injection attacks
-- Automated security testing for AI applications  
-- Defensive prompt engineering with quantitative validation
-- Real-world attack patterns and mitigation strategies
+- プロンプトインジェクション攻撃の識別と実行方法
+- AIアプリケーションの自動セキュリティテスト
+- 定量的検証を伴う防御的プロンプトエンジニアリング
+- 実世界の攻撃パターンと緩和戦略
 
-## Prerequisites
+## 前提条件
 
-- Basic Python programming
-- OpenAI API access (you'll need an API key)
-- Understanding of AI/ML fundamentals
+- 基本的なPythonプログラミング
+- OpenAI APIアクセス（APIキーが必要）
+- AI/MLの基礎の理解
 
-## Files included
+## 含まれるファイル
 
-- `agent-security-evaluation-tutorial.ipynb` - Main tutorial notebook
-- `model_testing_tools.py` - Automated testing framework
-- `prompt_manipulation_tools.py` - Encoding/obfuscation utilities
-- `system_prompt.txt` - Example defensive prompt
-- `example_prompts.csv` - Dataset of 91 real attack examples
+- `agent-security-evaluation-tutorial.ipynb` - メインチュートリアルノートブック
+- `model_testing_tools.py` - 自動テストフレームワーク
+- `prompt_manipulation_tools.py` - エンコーディング/難読化ユーティリティ
+- `system_prompt.txt` - 防御的プロンプトの例
+- `example_prompts.csv` - 91の実際の攻撃例のデータセット
 
-## Setup
+## セットアップ
 
-1. Install required packages: `pip install openai python-dotenv pandas`
-2. Create a `.env` file with your OpenAI API key: `OPENAI_API_KEY=your_key_here`
-3. Run the notebook cells in order
+1. 必要なパッケージをインストール: `pip install openai python-dotenv pandas`
+2. OpenAI APIキーを含む`.env`ファイルを作成: `OPENAI_API_KEY=your_key_here`
+3. ノートブックのセルを順番に実行
 
-The tutorial takes about 30-45 minutes to complete and includes both automated testing and manual experimentation.
+チュートリアルは完了まで約30-45分かかり、自動テストと手動実験の両方を含みます。
 
-## Warning
+## 警告
 
-This tutorial demonstrates actual attack techniques for educational purposes. Use these methods only on systems you own or have explicit permission to test.
+このチュートリアルは教育目的で実際の攻撃技術を実演します。これらの方法は、自分が所有しているか、明示的にテストする許可を得ているシステムでのみ使用してください。

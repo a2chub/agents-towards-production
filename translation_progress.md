@@ -4,10 +4,10 @@
 
 ## 進捗サマリー
 - 総ファイル数: 41
-- 完了: 5
+- 完了: 6
 - 進行中: 0
-- 未着手: 36
-- 進捗率: 12.2%
+- 未着手: 35
+- 進捗率: 14.6%
 
 ## ファイル別進捗状況
 
@@ -23,7 +23,7 @@
 |---------|-----------|---------|---------|------|
 | tutorials/agent-memory-with-redis/README.md | 完了 | 2025-06-21 | 2025-06-21 | Redis使用エージェントメモリチュートリアル翻訳完了 |
 | tutorials/agent-observability-with-qualifire/README.md | 完了 | 2025-06-21 | 2025-06-21 | Qualifireによる可観測性チュートリアル翻訳完了 |
-| tutorials/agent-security-apex/README.md | 未着手 | - | - | - |
+| tutorials/agent-security-apex/README.md | 完了 | 2025-06-21 | 2025-06-21 | セキュリティ評価チュートリアル翻訳完了 |
 | tutorials/agent-security-with-llamafirewall/README.md | 未着手 | - | - | - |
 | tutorials/agent-security-with-qualifire/README.md | 未着手 | - | - | - |
 | tutorials/agent-with-tavily-web-access/README.md | 未着手 | - | - | - |
