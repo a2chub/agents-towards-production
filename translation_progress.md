@@ -4,10 +4,10 @@
 
 ## 進捗サマリー
 - 総ファイル数: 41
-- 完了: 14
+- 完了: 15
 - 進行中: 0
-- 未着手: 27
-- 進捗率: 34.1%
+- 未着手: 26
+- 進捗率: 36.6%
 
 ## ファイル別進捗状況
 
@@ -36,7 +36,7 @@
 ### システムプロンプト（優先度：中）
 | ファイル | ステータス | 開始日時 | 完了日時 | 備考 |
 |---------|-----------|---------|---------|------|
-| tutorials/agent-security-apex/system_prompt.txt | 未着手 | - | - | - |
+| tutorials/agent-security-apex/system_prompt.txt | 完了 | 2025-06-22 | 2025-06-22 | パスワード保護システムプロンプトの日本語化完了 |
 
 ### Jupyterノートブック（優先度：低）
 | ファイル | ステータス | 開始日時 | 完了日時 | 備考 |
@@ -81,4 +81,6 @@
   - tutorials/docker-intro/README.md
   - tutorials/runpod-gpu-deploy/README.md
   - tutorials/runpod-gpu-deploy/crew-ai-ollama-runpod-tutorial/README.md
-- 進捗率が34.1%に向上（14/41ファイル完了）
+  - tutorials/agent-security-apex/system_prompt.txt
+- 進捗率が36.6%に向上（15/41ファイル完了）
+- 優先度「高」「中」のファイルがすべて完了
