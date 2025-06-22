@@ -1,13 +1,13 @@
 # ドキュメント日本語化進捗管理
 
-最終更新: 2025-06-21
+最終更新: 2025-06-22
 
 ## 進捗サマリー
 - 総ファイル数: 41
-- 完了: 9
+- 完了: 14
 - 進行中: 0
-- 未着手: 32
-- 進捗率: 22.0%
+- 未着手: 27
+- 進捗率: 34.1%
 
 ## ファイル別進捗状況
 
@@ -27,11 +27,11 @@
 | tutorials/agent-security-with-llamafirewall/README.md | 完了 | 2025-06-21 | 2025-06-21 | LlamaFirewallセキュリティチュートリアル翻訳完了 |
 | tutorials/agent-security-with-qualifire/README.md | 完了 | 2025-06-21 | 2025-06-21 | Qualifireセキュリティチュートリアル翻訳完了 |
 | tutorials/agent-with-tavily-web-access/README.md | 完了 | 2025-06-21 | 2025-06-21 | Tavilyウェブアクセスチュートリアル翻訳完了 |
-| tutorials/agentic-applications-by-xpander.ai/README.md | 未着手 | - | - | - |
-| tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/full-app/README.md | 未着手 | - | - | - |
-| tutorials/docker-intro/README.md | 未着手 | - | - | - |
-| tutorials/runpod-gpu-deploy/README.md | 未着手 | - | - | - |
-| tutorials/runpod-gpu-deploy/crew-ai-ollama-runpod-tutorial/README.md | 未着手 | - | - | - |
+| tutorials/agentic-applications-by-xpander.ai/README.md | 完了 | 2025-06-22 | 2025-06-22 | xpander.aiプラットフォーム紹介の日本語化完了 |
+| tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/full-app/README.md | 完了 | 2025-06-22 | 2025-06-22 | ミーティングレコーダーエージェントの日本語化完了 |
+| tutorials/docker-intro/README.md | 完了 | 2025-06-22 | 2025-06-22 | Docker入門チュートリアルの日本語化完了 |
+| tutorials/runpod-gpu-deploy/README.md | 完了 | 2025-06-22 | 2025-06-22 | RunPodサーバーレスデプロイチュートリアルの日本語化完了 |
+| tutorials/runpod-gpu-deploy/crew-ai-ollama-runpod-tutorial/README.md | 完了 | 2025-06-22 | 2025-06-22 | CrewAI+Ollamaチュートリアルの日本語化完了 |
 
 ### システムプロンプト（優先度：中）
 | ファイル | ステータス | 開始日時 | 完了日時 | 備考 |
@@ -73,3 +73,12 @@
 - 実施手順書（translation_plan.md）作成完了
 - 進捗管理ファイル（translation_progress.md）作成完了
 - 翻訳作業開始準備完了
+
+### 2025-06-22
+- 既に日本語化済みファイルの確認と記録
+  - tutorials/agentic-applications-by-xpander.ai/README.md
+  - tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/full-app/README.md
+  - tutorials/docker-intro/README.md
+  - tutorials/runpod-gpu-deploy/README.md
+  - tutorials/runpod-gpu-deploy/crew-ai-ollama-runpod-tutorial/README.md
+- 進捗率が34.1%に向上（14/41ファイル完了）
