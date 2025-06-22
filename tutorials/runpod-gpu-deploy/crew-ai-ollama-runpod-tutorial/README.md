@@ -1,76 +1,76 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--runpod-gpu-deploy--crew-ai-ollama-runpod-tutorial--readme)
 
-# CrewAI + Ollama on RunPod: Serverless AI Agents
+# RunPod上のCrewAI + Ollama：サーバーレスAIエージェント
 
-## Overview
+## 概要
 
-This repository demonstrates how to deploy an AI agent system on [RunPod](https://get.runpod.io/nirdiamant)'s serverless infrastructure. The sample application creates an API endpoint that generates blog posts on any topic through an AI agent workflow.
+このリポジトリでは、[RunPod](https://get.runpod.io/nirdiamant)のサーバーレスインフラストラクチャ上にAIエージェントシステムをデプロイする方法を実演します。サンプルアプリケーションは、AIエージェントワークフローを通じて任意のトピックに関するブログ投稿を生成するAPIエンドポイントを作成します。
 
-Key components:
-- **CrewAI**: Framework for orchestrating role-playing AI agents
-- **Ollama**: Tool for running open-source LLMs locally
-- **RunPod**: Serverless GPU infrastructure for AI deployment
+主要コンポーネント：
+- **CrewAI**：ロールプレイングAIエージェントを調整するフレームワーク
+- **Ollama**：オープンソースLLMをローカルで実行するツール
+- **RunPod**：AIデプロイメント用のサーバーレスGPUインフラストラクチャ
 
-*Referenced from: [RunPod Worker Template](https://github.com/runpod-workers/worker-template)*
+*参照元：[RunPod Worker Template](https://github.com/runpod-workers/worker-template)*
 
-## RunPod Template
+## RunPodテンプレート
 
-Get started immediately using our pre-configured RunPod template:
+事前設定済みのRunPodテンプレートを使用してすぐに開始：
 
 [<img src="https://img.shields.io/badge/RunPod-Deploy%20Now-blue?style=for-the-badge&logo=none" alt="Deploy on RunPod" width="200"/>](https://get.runpod.io/nirdiamant)
 
-## How It Works
+## 仕組み
 
-This application:
-1. Exposes an API endpoint through RunPod
-2. Accepts a topic as input
-3. Uses CrewAI to manage an AI agent that:
-   - Researches the topic (using a mock research tool in this example)
-   - Writes a structured blog post
-4. Returns the generated blog post as JSON
+このアプリケーションは：
+1. RunPodを通じてAPIエンドポイントを公開
+2. 入力としてトピックを受け入れる
+3. CrewAIを使用して以下を行うAIエージェントを管理：
+   - トピックを調査（この例では模擬調査ツールを使用）
+   - 構造化されたブログ投稿を執筆
+4. 生成されたブログ投稿をJSONとして返す
 
-## Architecture
+## アーキテクチャ
 
-- **Handler Function**: Entry point that processes requests (handler.py)
-- **Blog Writer Agent**: AI agent configured for content creation
-- **Mock Research Tool**: Simulates research by providing predefined facts
-- **Docker Container**: Packages everything with Ollama for serverless deployment
+- **ハンドラー関数**：リクエストを処理するエントリポイント（handler.py）
+- **ブログライターエージェント**：コンテンツ作成用に設定されたAIエージェント
+- **模擬調査ツール**：事前定義された事実を提供することで調査をシミュレート
+- **Dockerコンテナ**：サーバーレスデプロイメント用にOllamaと共にすべてをパッケージ化
 
-## Getting Started
+## はじめに
 
-### Deployment to RunPod
+### RunPodへのデプロイ
 
-#### Option 1: Use RunPod Template (Recommended)
+#### オプション1：RunPodテンプレートを使用（推奨）
 
-1. Click the "Deploy on RunPod" button above
-2. Configure your endpoint settings
-3. Deploy and start using immediately
+1. 上記の「Deploy on RunPod」ボタンをクリック
+2. エンドポイント設定を構成
+3. デプロイしてすぐに使用開始
 
-#### Option 2: Build and Deploy Custom Image
+#### オプション2：カスタムイメージをビルドしてデプロイ
 
-1. Build the Docker image:
+1. Dockerイメージをビルド：
    ```bash
    docker build -t yourusername/crew-ai-ollama:latest . --platform linux/amd64
    docker push yourusername/crew-ai-ollama:latest
    ```
 
-2. Create a new Serverless Endpoint on RunPod
-3. Select "Docker Image" as the source
-4. Enter your image URL
-5. Configure hardware settings (recommended: GPU with 24GB+ VRAM)
-6. Set worker count (min: 0, max: based on expected traffic)
-7. Deploy your endpoint
+2. RunPodで新しいServerless Endpointを作成
+3. ソースとして「Docker Image」を選択
+4. イメージURLを入力
+5. ハードウェア設定を構成（推奨：24GB以上のVRAMを持つGPU）
+6. ワーカー数を設定（最小：0、最大：予想されるトラフィックに基づく）
+7. エンドポイントをデプロイ
 
-## Usage
+## 使用方法
 
-### API Endpoint
+### APIエンドポイント
 
-Once deployed, your RunPod endpoint will provide a URL in this format:
+デプロイ後、RunPodエンドポイントは以下の形式でURLを提供します：
 ```
 https://api.runpod.ai/v2/[ENDPOINT_ID]/run
 ```
 
-### Example Request
+### リクエスト例
 
 ```bash
 curl --request POST \
@@ -87,7 +87,7 @@ curl --request POST \
 '
 ```
 
-### Example Response
+### レスポンス例
 
 ```json
 {
@@ -95,7 +95,7 @@ curl --request POST \
   "executionTime": 10799,
   "id": "4c04615b-540f-4d82-917d-4eb4256acd96-u1",
   "output": {
-    "blog_post": "Title: The Future of Technology: A Promising Horizon\n\nIntroduction:\nTechnology has been a driving force behind human progress, constantly evolving to meet the challenges of our time. In recent years, the pace of technological advancements has accelerated, and we stand on the precipice of an exciting new era. This blog post explores the current state of technology, highlights its most promising trends, and looks forward to what's in store for the future.\n\nMain Points:\n1. The Unrelenting Importance of Technology: As per recent research, 82% of industry leaders consider technology a pivotal area of focus, demonstrating its significance in shaping our world. From healthcare and education to communication and entertainment, technology continues to transform our daily lives.\n2. Rising Research Investments: Last year alone, spending on technology-related research grew by an impressive 34%. This surge in investment highlights the growing belief that technological innovation will be a primary catalyst for economic growth and societal progress.\n3. Soaring Consumer Interest: Consumer interest in technology has soared since 2022, with a staggering 56% increase recorded. This rapid growth is a testament to the increasing role of technology in our lives and its ability to address the evolving needs and desires of individuals worldwide.\n4. A Promising Horizon: Experts predict that the next five years will bring significant advancements in technology. From artificial intelligence and quantum computing to breakthroughs in biotechnology, the future promises a world of endless possibilities and new frontiers to explore.\n\nConclusion:\nThe future of technology is undoubtedly bright, with innovation driving us towards a more connected, efficient, and prosperous society. As we forge ahead into this exciting new era, it's crucial that we continue to invest in research, foster collaboration, and embrace the transformative potential of technology. Our collective commitment to harnessing its power will determine the extent to which we can leverage technology to overcome global challenges and shape a better tomorrow for all.\n\nCall to Action:\nJoin the conversation on social media using #FutureOfTech and share your thoughts about how technology is changing our world. Let's engage in a dialogue that fosters understanding, inspiration, and collective action towards an even brighter future.",
+    "blog_post": "タイトル：技術の未来：期待される地平線\n\n導入：\n技術は人類の進歩の原動力であり、時代の課題に対応するために絶えず進化してきました。近年、技術進歩のペースは加速し、私たちはエキサイティングな新時代の瀬戸際に立っています。このブログ投稿では、技術の現状を探り、最も有望なトレンドを強調し、将来に何が待っているかを展望します。\n\n主要ポイント：\n1. 技術の絶え間ない重要性：最近の調査によると、業界リーダーの82％が技術を重要な焦点分野と考えており、私たちの世界を形作る上でのその重要性を示しています。医療や教育からコミュニケーションやエンターテイメントまで、技術は私たちの日常生活を変革し続けています。\n2. 研究投資の増加：昨年だけで、技術関連の研究への支出は印象的な34％増加しました。この投資の急増は、技術革新が経済成長と社会進歩の主要な触媒になるという信念の高まりを強調しています。\n3. 消費者の関心の急上昇：2022年以来、技術に対する消費者の関心は急上昇し、驚異的な56％の増加が記録されました。この急速な成長は、私たちの生活における技術の役割の増大と、世界中の個人の進化するニーズと欲求に対処する能力の証です。\n4. 期待される地平線：専門家は、今後5年間で技術に大きな進歩がもたらされると予測しています。人工知能と量子コンピューティングからバイオテクノロジーのブレークスルーまで、未来は無限の可能性と探求すべき新しいフロンティアの世界を約束しています。\n\n結論：\n技術の未来は間違いなく明るく、イノベーションが私たちをより接続され、効率的で、繁栄した社会へと導いています。このエキサイティングな新時代に向けて前進するにつれて、研究への投資を継続し、協力を促進し、技術の変革的な可能性を受け入れることが重要です。その力を活用するという私たちの集団的なコミットメントが、グローバルな課題を克服し、すべての人にとってより良い明日を形作るために技術を活用できる程度を決定します。\n\n行動喚起：\n#FutureOfTechを使用してソーシャルメディアで会話に参加し、技術が私たちの世界をどのように変えているかについてのあなたの考えを共有してください。さらに明るい未来に向けて、理解、インスピレーション、集団行動を促進する対話に参加しましょう。",
     "status": "success"
   },
   "status": "COMPLETED",
@@ -103,11 +103,11 @@ curl --request POST \
 }
 ```
 
-## Key Files
+## 主要ファイル
 
 ### handler.py
 
-The main entry point for processing requests:
+リクエストを処理するメインエントリポイント：
 
 ```python
 import runpod
@@ -115,34 +115,34 @@ from crewai import Agent, Task, Crew, LLM
 from crewai.tools import tool
 import os
 
-# Configure Ollama LLM
+# Ollama LLMを設定
 llm = LLM(model="ollama/openhermes", base_url="http://localhost:11434")
 
-# Create a pseudo-research tool that returns fake information
+# 偽の情報を返す疑似調査ツールを作成
 @tool("Research Tool")
 def fake_research(topic: str) -> str:
     """
-    Pretends to search for information about a topic. 
-    Will always return some fake pre-defined content.
+    トピックに関する情報を検索するふりをします。
+    常に事前定義された偽のコンテンツを返します。
     """
-    # ... returns fake research data
+    # ... 偽の調査データを返す
     
-# Create blog writer agent
+# ブログライターエージェントを作成
 blog_writer = Agent(
-    role="Blog Writer",
-    goal="Write engaging and informative blog posts on various topics",
-    backstory="You are a professional blog writer...",
+    role="ブログライター",
+    goal="さまざまなトピックについて魅力的で有益なブログ投稿を書く",
+    backstory="あなたはプロのブログライターです...",
     tools=[fake_research],
     verbose=True,
     llm=llm
 )
 
 def create_blog_post(topic):
-    """Creates a blog post on the given topic using CrewAI"""
-    # ... creates and executes the task
+    """CrewAIを使用して指定されたトピックのブログ投稿を作成"""
+    # ... タスクを作成して実行
 
 def handler(job):
-    """Handler function that will be used to process jobs."""
+    """ジョブを処理するために使用されるハンドラー関数。"""
     job_input = job["input"]
     topic = job_input.get("topic", "technology")
     
@@ -163,44 +163,44 @@ runpod.serverless.start({"handler": handler})
 
 ### Dockerfile
 
-Contains the configuration for creating a containerized version of the application:
+アプリケーションのコンテナ化バージョンを作成するための設定を含みます：
 
 ```Dockerfile
 FROM runpod/pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04
 
-# Install Python dependencies
+# Python依存関係をインストール
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && \
     pip install uv && \
     uv pip install --upgrade -r /requirements.txt --no-cache-dir && \
     uv pip install "langchain-community>=0.0.34" --no-cache-dir
 
-# Download model during build
+# ビルド中にモデルをダウンロード
 RUN ollama serve > /dev/null 2>&1 & \
     sleep 25 && \
     ollama pull openhermes && \
     sleep 10 && \
     pkill ollama
 
-# Startup script
+# 起動スクリプト
 CMD ["/start.sh"]
 ```
 
-## Performance Considerations
+## パフォーマンスの考慮事項
 
-- The first request may experience cold-start latency as the container initializes
-- Pre-loading the Ollama model in the Docker image significantly improves response time
-- Response times typically range from 5-15 seconds depending on the complexity of the topic
+- 最初のリクエストは、コンテナが初期化されるときにコールドスタートの遅延が発生する可能性があります
+- DockerイメージにOllamaモデルを事前にロードすると、応答時間が大幅に改善されます
+- 応答時間は通常、トピックの複雑さに応じて5〜15秒の範囲です
 
-## Extending This Project
+## このプロジェクトの拡張
 
-This template can be extended in several ways:
-- Replace the mock research tool with real web search functionality
-- Add more specialized agents for different aspects of content creation
-- Implement more complex workflows with multiple agents collaborating
-- Fine-tune the LLM for your specific use case
+このテンプレートはいくつかの方法で拡張できます：
+- 模擬調査ツールを実際のウェブ検索機能に置き換える
+- コンテンツ作成のさまざまな側面に特化したエージェントを追加
+- 複数のエージェントが協力するより複雑なワークフローを実装
+- 特定のユースケース用にLLMをファインチューニング
 
-## Acknowledgements
+## 謝辞
 
 - [CrewAI](https://github.com/crewAIInc/crewAI)
 - [Ollama](https://github.com/ollama/ollama)

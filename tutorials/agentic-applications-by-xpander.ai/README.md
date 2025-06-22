@@ -1,66 +1,65 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--agentic-applications-by-xpander-ai--readme)
 
-# Build Real-World AI Agents with xpander.ai
+# xpander.aiで実世界のAIエージェントを構築
 
-**xpander.ai** is a Backend-as-a-Service platform that lets you build, deploy, and scale production-ready AI agents—without worrying about infrastructure.
+**xpander.ai**は、インフラストラクチャを心配することなく、プロダクション対応のAIエージェントを構築、デプロイ、スケーリングできるBackend-as-a-Serviceプラットフォームです。
 
-xpander.ai offers Backend-as-a-Service infrastructure for autonomous agents: memory, tools, multi-user state, various agent triggering options (MCP, A2A, API, Web interfaces), storage, agent-to-agent messaging — designed to support any agent framework and SDK.
+xpander.aiは自律エージェント向けのBackend-as-a-Serviceインフラストラクチャを提供します：メモリ、ツール、マルチユーザー状態、様々なエージェントトリガーオプション（MCP、A2A、API、Webインターフェース）、ストレージ、エージェント間メッセージング — あらゆるエージェントフレームワークとSDKをサポートするよう設計されています。
 
-| Feature | Description |
+| 機能 | 説明 |
 |---------|-------------|
-| 🛠️ **Framework Flexibility** | Choose from popular frameworks like OpenAI ADK, Agno, CrewAI, LangChain, or work directly with native LLM APIs |
-| 🧰 **Tool Integration** | Access our comprehensive MCP-compatible tools library and pre-built integrations |
-| 🚀 **Scalable Hosting** | Deploy and scale your agents effortlessly on our managed infrastructure |
-| 💾 **State Management** | Opt for framework-specific local state or leverage our distributed state management system |
-| ⚡ **Real-time Events** | Harness our event streaming capabilities for Slackbots, ChatUIs, Agent2Agent communication, and Webhook integrations |
-| 🛡️ **API Guardrails** | Implement robust guardrails using our Agent-Graph-System to define and manage dependencies between API actions of tool-use |
+| 🛠️ **フレームワークの柔軟性** | OpenAI ADK、Agno、CrewAI、LangChainなどの人気フレームワークから選択、またはネイティブLLM APIを直接使用 |
+| 🧰 **ツール統合** | 包括的なMCP互換ツールライブラリと事前構築された統合機能にアクセス |
+| 🚀 **スケーラブルなホスティング** | マネージドインフラストラクチャ上でエージェントを簡単にデプロイおよびスケーリング |
+| 💾 **状態管理** | フレームワーク固有のローカル状態を選択するか、分散状態管理システムを活用 |
+| ⚡ **リアルタイムイベント** | Slackbot、ChatUI、エージェント間通信、Webhook統合のためのイベントストリーミング機能を活用 |
+| 🛡️ **APIガードレール** | Agent-Graph-Systemを使用してツール使用のAPIアクション間の依存関係を定義・管理し、堅牢なガードレールを実装 |
 
-By abstracting away infrastructure complexity, xpander.ai empowers you to focus on what matters most: building intelligent, effective, production-ready AI agents.
-
----
-
-## What is this tutorial?
-
-This tutorial is an example of a Meeting Recorder Agent built with xpander.ai. It demonstrates how to connect tools, manage state, and automate real business workflows with just a few lines of code. Use this example to understand what xpander.ai is and how you can build your own agents.
+インフラストラクチャの複雑さを抽象化することで、xpander.aiは最も重要なことに集中できるようにします：インテリジェントで効果的な、プロダクション対応のAIエージェントの構築。
 
 ---
 
-## What will you learn?
+## このチュートリアルとは？
 
-- How to use xpander.ai to orchestrate tools, memory, and agent logic
-- How to automate meeting scheduling, recording, and reporting
-- How to build agents that maintain context and interact with real-world APIs
-- How to use xpander.ai's visual workbench and observability features
+このチュートリアルは、xpander.aiで構築されたミーティングレコーダーエージェントの例です。わずか数行のコードで、ツールの接続、状態の管理、実際のビジネスワークフローの自動化を行う方法を示しています。この例を使用して、xpander.aiが何であり、独自のエージェントをどのように構築できるかを理解してください。
 
 ---
 
-## Why xpander.ai?
+## 何を学べますか？
 
-- **No backend required:** Focus on agent logic, not infrastructure
-- **Visual development:** Test, trace, and wire tools in a UI
-- **Persistent memory:** Agents remember context across sessions
-- **Tool orchestration:** Easily connect APIs, cloud, and local tools
-- **Production-ready:** Built-in observability, scaling, and security
-
----
-
-**Ready to build?**  
-1. Visit [https://app.xpander.ai](https://app.xpander.ai/login?utm=atp) and sign up for a **Free Account**
-2. Follow the [notebook tutorial](meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb) to get started!
+- xpander.aiを使用してツール、メモリ、エージェントロジックを調整する方法
+- ミーティングのスケジューリング、録音、レポート作成を自動化する方法
+- コンテキストを維持し、実世界のAPIと対話するエージェントを構築する方法
+- xpander.aiのビジュアルワークベンチと可観測性機能の使用方法
 
 ---
 
-## Explore Further
+## なぜxpander.aiなのか？
 
-- The complete implementation of this Meeting Recorder Agent is available in the `full-app` folder. This production-ready code includes:
-  - Complete agent implementation with all features
-  - Advanced error handling and logging
-  - Ready-to-use components you can extend
+- **バックエンド不要：** インフラストラクチャではなく、エージェントロジックに集中
+- **ビジュアル開発：** UIでツールのテスト、トレース、配線
+- **永続的メモリ：** エージェントはセッション間でコンテキストを記憶
+- **ツールオーケストレーション：** API、クラウド、ローカルツールを簡単に接続
+- **プロダクション対応：** 組み込みの可観測性、スケーリング、セキュリティ
 
 ---
 
-## Tutorial
+**構築を始める準備はできましたか？**  
+1. [https://app.xpander.ai](https://app.xpander.ai/login?utm=atp)にアクセスして**無料アカウント**にサインアップ
+2. [ノートブックチュートリアル](meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb)に従って始めましょう！
 
-📓 **[Complete Tutorial Notebook](meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb)** - Follow our step-by-step guide to build the Meeting Recorder Agent from scratch
+---
 
+## さらに探求する
+
+- このミーティングレコーダーエージェントの完全な実装は`full-app`フォルダーで利用可能です。このプロダクション対応コードには以下が含まれます：
+  - すべての機能を備えた完全なエージェント実装
+  - 高度なエラーハンドリングとロギング
+  - 拡張可能な即使用可能なコンポーネント
+
+---
+
+## チュートリアル
+
+📓 **[完全なチュートリアルノートブック](meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb)** - ステップバイステップガイドに従って、ミーティングレコーダーエージェントをゼロから構築
 

@@ -1,99 +1,99 @@
-# Meeting Recorder Agent
+# ミーティングレコーダーエージェント
 
-This directory contains a production-ready Meeting Recorder Agent implementation using the xpander.ai SDK, demonstrating how to build an autonomous agent that can manage meeting recordings and summaries.
+このディレクトリには、xpander.ai SDKを使用したプロダクション対応のミーティングレコーダーエージェント実装が含まれており、ミーティングの録画と要約を管理できる自律エージェントの構築方法を示しています。
 
-## Overview
+## 概要
 
-The Meeting Recorder Agent is designed to automate meeting workflows by:
-- Connecting to Google Calendar to find upcoming meetings
-- Scheduling and initiating meeting recordings
-- Checking recorder status and retrieving post-meeting assets (video & transcript)
-- Generating meeting summaries and PDF agendas
-- Emailing meeting assets and summaries to participants
-- Maintaining memory and context across multiple sessions
+ミーティングレコーダーエージェントは、以下によってミーティングワークフローを自動化するよう設計されています：
+- Googleカレンダーに接続して今後のミーティングを検索
+- ミーティング録画のスケジューリングと開始
+- レコーダーのステータス確認とミーティング後のアセット（動画とトランスクリプト）の取得
+- ミーティング要約とPDFアジェンダの生成
+- ミーティングアセットと要約を参加者にメール送信
+- 複数セッション間でのメモリとコンテキストの維持
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
 meeting-recorder-agent/
-├── app.py                      # CLI entry point for the agent
-├── meeting_recorder_agent.py   # Main agent implementation
-├── xpander_handler.py          # Event handler for platform events
-├── agent_instructions.json     # Agent persona configuration
-├── xpander_config.json         # API credentials configuration
-├── Dockerfile                  # Container definition for deployment
+├── app.py                      # エージェントのCLIエントリーポイント
+├── meeting_recorder_agent.py   # メインエージェント実装
+├── xpander_handler.py          # プラットフォームイベントのイベントハンドラー
+├── agent_instructions.json     # エージェントペルソナ設定
+├── xpander_config.json         # API認証情報設定
+├── Dockerfile                  # デプロイ用コンテナ定義
 ├── providers/
-│   ├── ai_frameworks/          # Framework integrations
-│   └── llms/                   # LLM provider implementations
-│       └── openai/             # OpenAI specific implementation
+│   ├── ai_frameworks/          # フレームワーク統合
+│   └── llms/                   # LLMプロバイダー実装
+│       └── openai/             # OpenAI固有の実装
 └── tools/
-    ├── local_tools.py          # Custom tool implementations
-    └── async_function_caller.py # Async function caller utility
+    ├── local_tools.py          # カスタムツール実装
+    └── async_function_caller.py # 非同期関数呼び出しユーティリティ
 ```
 
-## Getting Started
+## はじめに
 
-### Prerequisites
+### 前提条件
 
-- Python 3.10+ (3.10.0 or higher)
-- Node.js for the xpander CLI
-- xpander-sdk and xpander-utils (installed via requirements.txt)
-- [xpander.ai](https://xpander.ai/) account
-- Google Calendar API credentials (for calendar integration)
-- OpenAI API key (for LLM capabilities)
+- Python 3.10以上（3.10.0以上）
+- xpander CLI用のNode.js
+- xpander-sdkとxpander-utils（requirements.txt経由でインストール）
+- [xpander.ai](https://xpander.ai/)アカウント
+- Googleカレンダー API認証情報（カレンダー統合用）
+- OpenAI APIキー（LLM機能用）
 
-### Installation
+### インストール
 
-1. Create and activate a Python virtual environment:
+1. Python仮想環境を作成して有効化：
 
 ```bash
-# On macOS/Linux
+# macOS/Linux
 python3 -m venv .venv
 source .venv/bin/activate
 
-# On Windows
+# Windows
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-2. Install dependencies:
+2. 依存関係をインストール：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Setting Up Your Agent
+### エージェントのセットアップ
 
-You have two options to set up the agent on xpander.ai:
+xpander.aiでエージェントをセットアップするには2つのオプションがあります：
 
-#### Option 1: Use the Template (Recommended)
+#### オプション1：テンプレートを使用（推奨）
 
-1. Log in to your [app.xpander.ai](https://app.xpander.ai) account
-2. Inside "Agents" Click on Templates and select "Meeting Recorder Template"
-3. Click "Import Template" to add it to your workspace
-4. Once imported, from the AI Agent Workbench, click on the SDK Trigger
-5. Copy your **Agent ID** and **API Key**
+1. [app.xpander.ai](https://app.xpander.ai)アカウントにログイン
+2. 「Agents」内でTemplatesをクリックし、「Meeting Recorder Template」を選択
+3. 「Import Template」をクリックしてワークスペースに追加
+4. インポート後、AI Agent WorkbenchからSDK Triggerをクリック
+5. **Agent ID**と**API Key**をコピー
 
-Learn more about getting started with xpander workbench in the [official documentation](https://docs.xpander.ai/docs/01-get-started/02-getting-started-01-workbench).
+xpanderワークベンチの使い方について詳しくは[公式ドキュメント](https://docs.xpander.ai/docs/01-get-started/02-getting-started-01-workbench)をご覧ください。
 
-#### Option 2: Manual Setup
+#### オプション2：手動セットアップ
 
-If you prefer to build the agent manually:
+エージェントを手動で構築したい場合：
 
-1. Log in to your [app.xpander.ai](https://xpander.ai) account
-2. Click "Create New Agent" from your dashboard and skip the Planner step
-3. Add the following tools to your agent from the Built-in actions menu:
-   - **Check Recorder Status** tool
-   - **Create Meeting Recording Bot** tool
-   - **Send Email with Content** tool
-4. Add the following tool to your agent from the Google Calendar app:
-   - **Get Calendar Events by ID** tool
-5. Save your agent and copy your **Agent ID** and **API Key** from the SDK Trigger
+1. [app.xpander.ai](https://xpander.ai)アカウントにログイン
+2. ダッシュボードから「Create New Agent」をクリックし、Plannerステップをスキップ
+3. Built-inアクションメニューから以下のツールをエージェントに追加：
+   - **Check Recorder Status**ツール
+   - **Create Meeting Recording Bot**ツール
+   - **Send Email with Content**ツール
+4. Google Calendarアプリから以下のツールをエージェントに追加：
+   - **Get Calendar Events by ID**ツール
+5. エージェントを保存し、SDK Triggerから**Agent ID**と**API Key**をコピー
 
-For detailed instructions on adding tools to your agent, refer to the [Adding Tools to Agents](https://docs.xpander.ai/docs/02-agent-builder/02-add-tools-to-agents) documentation.
+エージェントにツールを追加する詳細な手順については、[エージェントへのツール追加](https://docs.xpander.ai/docs/02-agent-builder/02-add-tools-to-agents)ドキュメントを参照してください。
 
-3.  Configure your environment: 
-Create a `.env` file in the project root with the required keys and settings:
+3. 環境を設定：
+プロジェクトルートに必要なキーと設定を含む`.env`ファイルを作成：
 
 ```
 OPENAI_API_KEY=your_openai_key
@@ -101,301 +101,302 @@ XPANDER_API_KEY=your_xpander_key
 XPANDER_AGENT_ID=your_agent_id
 ```
 
-## 📚 How It Works
+## 📚 仕組み
 
-The agent uses two main components:
+エージェントは2つの主要コンポーネントを使用します：
 
-1. **Main App (`app.py`)**: Coordinates everything 
-2. **Meeting Agent (`meeting_agent.py`)**: Connects to xpander.ai to run the agent
+1. **メインアプリ（`app.py`）**：すべてを調整
+2. **ミーティングエージェント（`meeting_agent.py`）**：xpander.aiに接続してエージェントを実行
 
-The agent leverages xpander.ai's built-in thread-based memory system to maintain conversation context and remember meeting details across sessions.
+エージェントは、xpander.aiの組み込みスレッドベースメモリシステムを活用して、会話のコンテキストを維持し、セッション間でミーティングの詳細を記憶します。
 
-### Agent Tools
+### エージェントツール
 
 <table>
 <tr>
   <td width="25%" align="center">
-    <h4>🔎<br>Check Recorder Status</h4>
+    <h4>🔎<br>レコーダーステータス確認</h4>
   </td>
   <td>
-    Queries the status of recording bots and retrieves information about recordings:
+    録画ボットのステータスを照会し、録画に関する情報を取得：
     <ul>
-      <li>Shows if recordings are in progress or completed</li>
-      <li>Provides links to video, audio, and transcript downloads</li>
-      <li>Displays metadata like duration and participants</li>
+      <li>録画が進行中か完了しているかを表示</li>
+      <li>動画、音声、トランスクリプトのダウンロードリンクを提供</li>
+      <li>期間や参加者などのメタデータを表示</li>
     </ul>
   </td>
 </tr>
 <tr>
   <td width="25%" align="center">
-    <h4>🤖<br>Create Recording Bot</h4>
+    <h4>🤖<br>録画ボット作成</h4>
   </td>
   <td>
-    Creates and deploys a new bot to record a Google Meet session:
+    Google Meetセッションを録画する新しいボットを作成およびデプロイ：
     <ul>
-      <li>Accepts Google Meet URLs in any format</li>
-      <li>Automatically joins meetings using specified credentials</li>
-      <li>Creates a dedicated recorder ID for tracking</li>
+      <li>任意の形式のGoogle Meet URLを受け入れ</li>
+      <li>指定された認証情報を使用して自動的にミーティングに参加</li>
+      <li>追跡用の専用レコーダーIDを作成</li>
     </ul>
   </td>
 </tr>
 <tr>
   <td width="25%" align="center">
-    <h4>📧<br>Send Email Content</h4>
+    <h4>📧<br>メールコンテンツ送信</h4>
   </td>
   <td>
-    Sends meeting summaries and recordings via email:
+    ミーティングの要約と録画をメールで送信：
     <ul>
-      <li>Sends transcript summaries to meeting participants</li>
-      <li>Attaches or links to recording files</li>
-      <li>Supports customized email templates</li>
+      <li>トランスクリプトの要約をミーティング参加者に送信</li>
+      <li>録画ファイルを添付またはリンク</li>
+      <li>カスタマイズされたメールテンプレートをサポート</li>
     </ul>
   </td>
 </tr>
 <tr>
   <td width="25%" align="center">
-    <h4>📅<br>Get Calendar Events</h4>
+    <h4>📅<br>カレンダーイベント取得</h4>
   </td>
   <td>
-    Connects with your Google Calendar:
+    Googleカレンダーと接続：
     <ul>
-      <li>Fetches upcoming and past calendar events</li>
-      <li>Links calendar events to meeting recordings</li>
-      <li>Provides scheduling information for the agent</li>
+      <li>今後および過去のカレンダーイベントを取得</li>
+      <li>カレンダーイベントをミーティング録画にリンク</li>
+      <li>エージェントのスケジューリング情報を提供</li>
     </ul>
   </td>
 </tr>
 </table>
 
-### Running the Agent
+### エージェントの実行
 
-#### CLI Mode
+#### CLIモード
 
-first login to xpander.ai
+まずxpander.aiにログイン
 ```bash
 xpander login
 ```
 
-Run the agent in interactive command-line mode:
+対話型コマンドラインモードでエージェントを実行：
 
 ```bash
 python app.py
 ```
 
-This starts a conversation with the agent where you can interact with it directly.
+これにより、エージェントと直接対話できる会話が開始されます。
 
-Example output:
+出力例：
 ```
-2025-05-27 21:15:18.436 | INFO     | meeting_recorder_agent:chat:80 - 🧠 Adding task to a new thread
-2025-05-27 21:15:21.590 | INFO     | meeting_recorder_agent:_agent_loop:115 - 🪄 Starting Agent Loop
+2025-05-27 21:15:18.436 | INFO     | meeting_recorder_agent:chat:80 - 🧠 新しいスレッドにタスクを追加
+2025-05-27 21:15:21.590 | INFO     | meeting_recorder_agent:_agent_loop:115 - 🪄 エージェントループ開始
 2025-05-27 21:15:25.275 | INFO     | meeting_recorder_agent:_agent_loop:121 - --------------------------------------------------------------------------------
-2025-05-27 21:15:25.276 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 Step 1
-2025-05-27 21:15:29.686 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 Model response received in 3.78 s
-2025-05-27 21:15:29.687 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 Tool call function name: xpfinish-agent-execution-finished
+2025-05-27 21:15:25.276 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 ステップ 1
+2025-05-27 21:15:29.686 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 モデル応答を3.78秒で受信
+2025-05-27 21:15:29.687 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 ツール呼び出し関数名: xpfinish-agent-execution-finished
 2025-05-27 21:15:34.801 | INFO     | meeting_recorder_agent:_agent_loop:179 - ✅ xpfinish-agent-execution-finished
-2025-05-27 21:15:34.802 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 Step 1 tokens used: 2436 (output: 144, input: 2292)
-2025-05-27 21:15:36.571 | INFO     | meeting_recorder_agent:_agent_loop:187 - ✨ Execution duration: 14.98 s
-2025-05-27 21:15:36.573 | INFO     | meeting_recorder_agent:_agent_loop:190 - 🔢 Total tokens used: 2436 (output: 144, input: 2292)
+2025-05-27 21:15:34.802 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 ステップ1使用トークン: 2436 (出力: 144, 入力: 2292)
+2025-05-27 21:15:36.571 | INFO     | meeting_recorder_agent:_agent_loop:187 - ✨ 実行時間: 14.98秒
+2025-05-27 21:15:36.573 | INFO     | meeting_recorder_agent:_agent_loop:190 - 🔢 総使用トークン: 2436 (出力: 144, 入力: 2292)
 2025-05-27 21:15:37.113 | INFO     | meeting_recorder_agent:chat:84 - --------------------------------------------------------------------------------
-2025-05-27 21:15:37.114 | INFO     | meeting_recorder_agent:chat:85 - 🤖 Agent response: Hello! Here are some of the things I can do for you:
+2025-05-27 21:15:37.114 | INFO     | meeting_recorder_agent:chat:85 - 🤖 エージェント応答: こんにちは！私ができることをいくつか紹介します：
 
-- Record your video meetings by creating a meeting recorder bot and provide you with the recording status and assets.
-- Retrieve and manage events from your calendar, including sending notifications or summaries via email.
-- Generate and export a weekly meeting agenda as a PDF from your list of meetings.
-- Send crafted email notifications or alerts with custom content.
+- ミーティングレコーダーボットを作成してビデオミーティングを録画し、録画ステータスとアセットを提供します。
+- カレンダーからイベントを取得・管理し、メールで通知や要約を送信することも含みます。
+- ミーティングリストから週次ミーティングアジェンダをPDFとして生成・エクスポートします。
+- カスタムコンテンツを含むメール通知やアラートを送信します。
 
-If you have a specific task in mind, just let me know and I'll help you with it!
-You: 
+特定のタスクがある場合は、お知らせください。お手伝いします！
+あなた: 
 ```
 
-#### Event-Driven Mode
+#### イベント駆動モード
 
-Run the agent in event-driven mode to handle events from the xpander.ai platform:
+xpander.aiプラットフォームからのイベントを処理するイベント駆動モードでエージェントを実行：
 
 ```bash
 python xpander_handler.py
 ```
 
-When running correctly, the agent will start and wait for incoming events from the xpander.ai platform. There won't be immediate output unless an event is received.
+正しく実行されると、エージェントが開始され、xpander.aiプラットフォームからの着信イベントを待機します。イベントが受信されない限り、すぐには出力されません。
 
-Note: Make sure to use python3 if your system doesn't recognize the python command:
+注意：システムがpythonコマンドを認識しない場合は、python3を使用してください：
 
 ```bash
 python3 xpander_handler.py
 ```
 
-## Usage Examples
+## 使用例
 
-### Add Calendar Integration
+### カレンダー統合の追加
 
-This agent is configured to retrieve upcoming meetings from your connected Google Calendar. You can ask it to look up your schedule and include key details about each meeting.
+このエージェントは、接続されたGoogleカレンダーから今後のミーティングを取得するよう設定されています。スケジュールを調べて、各ミーティングの主要な詳細を含めるよう依頼できます。
 
-During a conversation with the agent, try sending a message like:
+エージェントとの会話中に、次のようなメッセージを送信してみてください：
 ```
-List my upcoming meetings on <DATE> and the three consecutive days, for each meeting, include: title, description (if available), location, time, participants
+<日付>とその後の3日間の今後のミーティングをリストし、各ミーティングについて以下を含めてください：タイトル、説明（利用可能な場合）、場所、時間、参加者
 ```
-The agent will process your request, call the calendar tool, and return a nicely formatted list of meetings with all the details you requested.
+エージェントはリクエストを処理し、カレンダーツールを呼び出し、リクエストしたすべての詳細を含む整形されたミーティングリストを返します。
 
-Example output:
+出力例：
 ```
-2025-05-27 21:28:04.970 | INFO     | meeting_recorder_agent:chat:77 - 🧠 Adding task to existing thread: fb6b4ed0-d39e-4129-ad59-d2f508f29db1
-2025-05-27 21:28:09.065 | INFO     | meeting_recorder_agent:_agent_loop:115 - 🪄 Starting Agent Loop
+2025-05-27 21:28:04.970 | INFO     | meeting_recorder_agent:chat:77 - 🧠 既存スレッドにタスクを追加: fb6b4ed0-d39e-4129-ad59-d2f508f29db1
+2025-05-27 21:28:09.065 | INFO     | meeting_recorder_agent:_agent_loop:115 - 🪄 エージェントループ開始
 2025-05-27 21:28:10.209 | INFO     | meeting_recorder_agent:_agent_loop:121 - --------------------------------------------------------------------------------
-2025-05-27 21:28:10.209 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 Step 1
-2025-05-27 21:28:12.225 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 Model response received in 1.40 s
-2025-05-27 21:28:12.225 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 Tool call function name: CalendarEventManagementGetCalendarEventsById
+2025-05-27 21:28:10.209 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 ステップ 1
+2025-05-27 21:28:12.225 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 モデル応答を1.40秒で受信
+2025-05-27 21:28:12.225 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 ツール呼び出し関数名: CalendarEventManagementGetCalendarEventsById
 2025-05-27 21:28:20.334 | INFO     | meeting_recorder_agent:_agent_loop:179 - ✅ CalendarEventManagementGetCalendarEventsById
-2025-05-27 21:28:20.334 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 Step 1 tokens used: 2400 (output: 67, input: 2333)
+2025-05-27 21:28:20.334 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 ステップ1使用トークン: 2400 (出力: 67, 入力: 2333)
 2025-05-27 21:28:21.421 | INFO     | meeting_recorder_agent:_agent_loop:121 - --------------------------------------------------------------------------------
-2025-05-27 21:28:21.422 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 Step 2
-2025-05-27 21:28:25.683 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 Model response received in 3.68 s
-2025-05-27 21:28:25.684 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 Tool call function name: xpfinish-agent-execution-finished
+2025-05-27 21:28:21.422 | INFO     | meeting_recorder_agent:_agent_loop:122 - 🔍 ステップ 2
+2025-05-27 21:28:25.683 | INFO     | providers.llms.openai.async_client:invoke_model:87 - 🔄 モデル応答を3.68秒で受信
+2025-05-27 21:28:25.684 | INFO     | providers.llms.openai.async_client:invoke_model:93 - 🔄 ツール呼び出し関数名: xpfinish-agent-execution-finished
 2025-05-27 21:28:32.740 | INFO     | meeting_recorder_agent:_agent_loop:179 - ✅ xpfinish-agent-execution-finished
-2025-05-27 21:28:32.741 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 Step 2 tokens used: 6013 (output: 337, input: 5676)
-2025-05-27 21:28:34.478 | INFO     | meeting_recorder_agent:_agent_loop:187 - ✨ Execution duration: 25.41 s
-2025-05-27 21:28:34.480 | INFO     | meeting_recorder_agent:_agent_loop:190 - 🔢 Total tokens used: 8413 (output: 404, input: 8009)
+2025-05-27 21:28:32.741 | INFO     | meeting_recorder_agent:_agent_loop:181 - 🔢 ステップ2使用トークン: 6013 (出力: 337, 入力: 5676)
+2025-05-27 21:28:34.478 | INFO     | meeting_recorder_agent:_agent_loop:187 - ✨ 実行時間: 25.41秒
+2025-05-27 21:28:34.480 | INFO     | meeting_recorder_agent:_agent_loop:190 - 🔢 総使用トークン: 8413 (出力: 404, 入力: 8009)
 2025-05-27 21:28:35.020 | INFO     | meeting_recorder_agent:chat:84 - --------------------------------------------------------------------------------
-2025-05-27 21:28:35.021 | INFO     | meeting_recorder_agent:chat:85 - 🤖 Agent response: Here are your meetings from your Google Calendar for the next 3 days (27–29 May 2025):
+2025-05-27 21:28:35.021 | INFO     | meeting_recorder_agent:chat:85 - 🤖 エージェント応答: Googleカレンダーから次の3日間（2025年5月27日〜29日）のミーティングをお知らせします：
 
 ---
 
-**1. Onboarding to xpander**
-- **Date:** 27 May 2025
-- **Time:** 15:30–16:00 (Asia/Jerusalem)
-- **Location:** Google Meet Link (https://meet.google.com/ ....)
-- **Attendees:** Daniel, Or, David
+**1. xpanderへのオンボーディング**
+- **日付:** 2025年5月27日
+- **時間:** 15:30–16:00 (Asia/Jerusalem)
+- **場所:** Google Meetリンク (https://meet.google.com/ ....)
+- **参加者:** Daniel、Or、David
 
 **2. AWS Summit Tel Aviv**
-- **Date:** 28 May 2025
-- **Time:** 08:00–17:30 (Asia/Jerusalem)
-- **Location:** EXPO Tel Aviv, Pavilion 1, 101 Rokach Blvd
+- **日付:** 2025年5月28日
+- **時間:** 08:00–17:30 (Asia/Jerusalem)
+- **場所:** EXPO Tel Aviv、パビリオン1、101 Rokach Blvd
 ---
 
-Let me know if you need more details or want this as a PDF!
+詳細が必要な場合やPDFとして必要な場合はお知らせください！
 ```
 
-### Create a Meeting Recorder Bot 
+### ミーティングレコーダーボットの作成
 
-This agent is configured to create a meeting recorder bot for a given Google Meet URL. You can ask it to create a recorder for a specific meeting and it will do so.
+このエージェントは、指定されたGoogle Meet URLのミーティングレコーダーボットを作成するよう設定されています。特定のミーティングのレコーダーを作成するよう依頼でき、それを実行します。
 
-During a conversation with the agent, try sending a message like:
+エージェントとの会話中に、次のようなメッセージを送信してみてください：
 ```
-Create a meeting recorder bot for the following Google Meet URL: https://meet.google.com/okf-ntry-xtg
+以下のGoogle Meet URLのミーティングレコーダーボットを作成してください：https://meet.google.com/okf-ntry-xtg
 ```
-or :
+または：
 ```
-Create a recorder for the <MEETING_TITLE>.
-```
-
-Check the recorder status:
-
-```
-Check the recorder status and give me the asset links if done.
+<ミーティングタイトル>のレコーダーを作成してください。
 ```
 
-### Generate a Meeting Summary and send it via email
+レコーダーのステータスを確認：
 
 ```
-Email the video & transcript to <YOUR_EMAIL> with a summary
+レコーダーのステータスを確認し、完了していればアセットのリンクを教えてください。
 ```
 
-## Agent Capabilities
+### ミーティング要約の生成とメール送信
 
-The Meeting Recorder Agent demonstrates several key capabilities:
+```
+動画とトランスクリプトを要約とともに<あなたのメールアドレス>にメールしてください
+```
 
-- **Framework-Agnostic Design**: Built without tight coupling to any specific AI framework
-- **Asynchronous Processing**: Utilizes Python's asyncio for non-blocking operations
-- **Tool Integration**: Uses both local and cloud-based tools
-- **Memory Management**: Maintains conversation context across interactions
-- **Observability**: Logs detailed execution metrics and token usage
-- **Multi-Step Reasoning**: Coordinates complex reasoning chains
+## エージェント機能
 
-## Local Tools
+ミーティングレコーダーエージェントは、いくつかの主要な機能を示しています：
 
-The agent includes local tools:
+- **フレームワーク非依存設計**：特定のAIフレームワークに密結合せずに構築
+- **非同期処理**：非ブロッキング操作のためにPythonのasyncioを活用
+- **ツール統合**：ローカルツールとクラウドベースのツールの両方を使用
+- **メモリ管理**：対話間で会話コンテキストを維持
+- **可観測性**：詳細な実行メトリクスとトークン使用状況をログ記録
+- **マルチステップ推論**：複雑な推論チェーンを調整
 
-1. `export_meeting_schedule_pdf`: Generates formatted PDF agendas
+## ローカルツール
 
-## Customization
+エージェントにはローカルツールが含まれています：
 
-### Changing Instructions
+1. `export_meeting_schedule_pdf`：フォーマット済みのPDFアジェンダを生成
 
-Modify the `agent_instructions.json` file to customize the agent's behavior:
+## カスタマイズ
+
+### 指示の変更
+
+`agent_instructions.json`ファイルを変更してエージェントの動作をカスタマイズ：
 ```json
 {
-    "role": "Meeting Recorder Assistant",
-    "goal": "Automate meeting recording and summary workflows",
-    "general": "Detailed instructions for handling meetings..."
+    "role": "ミーティングレコーダーアシスタント",
+    "goal": "ミーティングの録画と要約ワークフローを自動化",
+    "general": "ミーティング処理のための詳細な指示..."
 }
 ```
 
-### Switching LLM Providers
+### LLMプロバイダーの切り替え
 
-By default, the agent uses OpenAI. To switch to a different provider:
+デフォルトでは、エージェントはOpenAIを使用します。別のプロバイダーに切り替えるには：
 
 ```python
-# In my_agent.py
-llm_provider = LLMProvider.ANTHROPIC  # Or another supported provider
+# my_agent.py内
+llm_provider = LLMProvider.ANTHROPIC  # または他のサポートされているプロバイダー
 
-# During initialization
+# 初期化時
 self.agent.select_llm_provider(llm_provider)
 ```
 
-### Adding Custom Tools
+### カスタムツールの追加
 
-Add new tools by extending `local_tools.py` with additional functions and tool declarations.
+`local_tools.py`を拡張して、追加の関数とツール宣言を含む新しいツールを追加します。
 
-## Deployment
+## デプロイ
 
-Deploy the agent to xpander.ai's managed infrastructure:
+xpander.aiのマネージドインフラストラクチャにエージェントをデプロイ：
 
 ```bash
 xpander deploy
 ```
 
-Monitor the deployed agent's logs:
+デプロイされたエージェントのログを監視：
 
 ```bash
 xpander logs
 ```
 
-## Troubleshooting
+## トラブルシューティング
 
-- **Calendar Integration Issues**: Verify Google Calendar API authentication 
- **Missing Dependencies**: Ensure all requirements are installed
-- **Tool Execution Errors**: Check the logs for detailed error messages
-## Additional Resources
+- **カレンダー統合の問題**：Google Calendar API認証を確認
+- **依存関係の不足**：すべての要件がインストールされていることを確認
+- **ツール実行エラー**：詳細なエラーメッセージについてログを確認
 
-- [xpander.ai Documentation](https://docs.xpander.ai)
-- [SDK API Reference](https://docs.xpander.ai/api-reference/07-sdk)
-- [Example Library](https://github.com/xpander-ai/xpander.ai/tree/main/examples) 
+## その他のリソース
 
-## Exploring the Code
+- [xpander.aiドキュメント](https://docs.xpander.ai)
+- [SDK APIリファレンス](https://docs.xpander.ai/api-reference/07-sdk)
+- [サンプルライブラリ](https://github.com/xpander-ai/xpander.ai/tree/main/examples) 
 
-To better understand how the agent works, here are the key files to examine:
+## コードの探索
 
-1. **meeting_recorder_agent.py**: The core agent implementation that handles:
-   - Initialization with xpander.ai SDK
-   - The agent reasoning loop with `_agent_loop()`
-   - Tool execution flow
-   - Token usage tracking and metrics
+エージェントの動作をよりよく理解するために、調べるべき主要なファイルは次のとおりです：
 
-2. **xpander_handler.py**: Event-driven architecture implementation showing:
-   - How to register event handlers with the xpander platform
-   - Processing incoming execution requests
-   - Returning structured results
+1. **meeting_recorder_agent.py**：以下を処理するコアエージェント実装：
+   - xpander.ai SDKでの初期化
+   - `_agent_loop()`でのエージェント推論ループ
+   - ツール実行フロー
+   - トークン使用状況の追跡とメトリクス
 
-3. **tools/local_tools.py**: Example tool implementations with:
-   - Function definitions
-   - Tool schema declarations
-   - Helper utilities for tool registration
+2. **xpander_handler.py**：以下を示すイベント駆動アーキテクチャ実装：
+   - xpanderプラットフォームにイベントハンドラーを登録する方法
+   - 着信実行リクエストの処理
+   - 構造化された結果の返却
 
-The code is structured to demonstrate best practices for building AI agents with xpander.ai, including:
+3. **tools/local_tools.py**：以下を含むサンプルツール実装：
+   - 関数定義
+   - ツールスキーマ宣言
+   - ツール登録のヘルパーユーティリティ
 
-- Clean separation of concerns
-- Asynchronous processing
-- Structured error handling
-- Detailed logging
-- Modular tool implementation
+コードは、xpander.aiでAIエージェントを構築するためのベストプラクティスを示すよう構造化されています：
 
-When modifying the agent, start by examining these files to understand the execution flow before making changes. 
+- 関心事の明確な分離
+- 非同期処理
+- 構造化されたエラーハンドリング
+- 詳細なロギング
+- モジュール式ツール実装
+
+エージェントを変更する場合は、変更を加える前にこれらのファイルを調べて実行フローを理解することから始めてください。 

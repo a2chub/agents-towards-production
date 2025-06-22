@@ -1,83 +1,83 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--runpod-gpu-deploy--readme)
 
-# Deploying AI Agents with RunPod Serverless
+# RunPodサーバーレスを使用したAIエージェントのデプロイ
 
-## Overview
+## 概要
 
-This tutorial demonstrates how to deploy AI agents using RunPod's Serverless infrastructure. We'll build and deploy a CrewAI writing agent that uses Ollama models, creating a scalable API endpoint that generates articles based on user topics. You'll learn containerization, serverless deployment, and how to handle dynamic scaling without managing infrastructure.
+このチュートリアルでは、RunPodのサーバーレスインフラストラクチャを使用してAIエージェントをデプロイする方法を実演します。Ollamaモデルを使用するCrewAIライティングエージェントを構築してデプロイし、ユーザーのトピックに基づいて記事を生成するスケーラブルなAPIエンドポイントを作成します。コンテナ化、サーバーレスデプロイメント、インフラストラクチャを管理せずに動的スケーリングを処理する方法を学びます。
 
-## Detailed Explanation
+## 詳細説明
 
-### Motivation
+### 動機
 
-Deploying AI agents traditionally requires significant infrastructure management - setting up servers, configuring auto-scaling, managing load balancers, and handling cost optimization. This creates barriers for developers who want to focus on building intelligent agents rather than managing infrastructure.
+AIエージェントの従来のデプロイには、サーバーのセットアップ、オートスケーリングの設定、ロードバランサーの管理、コスト最適化の処理など、重要なインフラストラクチャ管理が必要です。これにより、インフラストラクチャの管理よりもインテリジェントエージェントの構築に集中したい開発者にとって障壁が生じます。
 
-**Serverless deployment fundamentally changes this paradigm** by removing infrastructure concerns entirely. Instead of managing servers, developers simply package their code into containers that automatically execute when requests arrive. RunPod handles all scaling, load balancing, and resource allocation automatically.
+**サーバーレスデプロイメントは、インフラストラクチャの懸念を完全に取り除くことで、このパラダイムを根本的に変えます**。サーバーを管理する代わりに、開発者はリクエストが到着したときに自動的に実行されるコンテナにコードをパッケージ化するだけです。RunPodはすべてのスケーリング、ロードバランシング、リソース割り当てを自動的に処理します。
 
-This approach is particularly valuable for AI agents because of unpredictable usage patterns and resource-intensive operations. With RunPod's serverless endpoints, you only pay for the compute time your agent actually uses.
+このアプローチは、予測不可能な使用パターンとリソース集約的な操作のため、AIエージェントにとって特に価値があります。RunPodのサーバーレスエンドポイントを使用すると、エージェントが実際に使用したコンピューティング時間に対してのみ支払います。
 
-### What is RunPod
+### RunPodとは
 
-RunPod is a cloud computing platform built for AI, ML, and general computing needs. RunPod makes it easy to spin up a remote GPU/CPU server, and provides a seamless way to deploy and scale your workloads.
+RunPodは、AI、ML、一般的なコンピューティングニーズ向けに構築されたクラウドコンピューティングプラットフォームです。RunPodを使用すると、リモートGPU/CPUサーバーを簡単に起動でき、ワークロードをデプロイおよびスケーリングするシームレスな方法を提供します。
 
-### Application We Will Be Deploying
+### デプロイするアプリケーション
 
-[Refer to the files in this repository](./crew-ai-ollama-runpod-tutorial/README.md) for files referenced in this tutorial.
+このチュートリアルで参照されるファイルについては、[このリポジトリのファイルを参照してください](./crew-ai-ollama-runpod-tutorial/README.md)。
 
-The objective is to create an API endpoint where a user can ping it a topic, an agent does some research (a pseudoresearch tool has been provided to the agent), and returns a short article based off the agent research.
+目的は、ユーザーがトピックを送信できるAPIエンドポイントを作成し、エージェントが調査を行い（エージェントに疑似調査ツールが提供されています）、エージェントの調査に基づいて短い記事を返すことです。
 
-### Key Components
+### 主要コンポーネント
 
-Our deployment architecture consists of three essential components working together:
+デプロイアーキテクチャは、連携して動作する3つの重要なコンポーネントで構成されています：
 
-**CrewAI Framework**: A multi-agent system that coordinates AI workers to complete complex tasks. In our case, it manages a research agent and writing agent that collaborate to produce blog content.
+**CrewAIフレームワーク**：複雑なタスクを完了するためにAIワーカーを調整するマルチエージェントシステム。この場合、ブログコンテンツを作成するために協力する調査エージェントとライティングエージェントを管理します。
 
-**Ollama Runtime**: A local language model server that runs models like OpenHermes directly in our container. This eliminates external API dependencies and provides faster, more reliable inference.
+**Ollamaランタイム**：OpenHermesなどのモデルをコンテナ内で直接実行するローカル言語モデルサーバー。これにより、外部API依存関係が排除され、より高速で信頼性の高い推論が提供されます。
 
-**RunPod Serverless**: A GPU-optimized serverless platform that automatically manages container lifecycle, scaling, and resource allocation for AI workloads.
+**RunPodサーバーレス**：AIワークロード用のコンテナライフサイクル、スケーリング、リソース割り当てを自動的に管理するGPU最適化サーバーレスプラットフォーム。
 
-### Method Overview
+### メソッド概要
 
-Our deployment method follows this workflow:
+デプロイメント方法は以下のワークフローに従います：
 
-1. **Containerization**: Package the CrewAI application, Ollama runtime, and language model into a Docker container
-2. **Handler Definition**: Create a Python function that processes incoming requests and coordinates the AI agents
-3. **Serverless Deployment**: Deploy the container to RunPod's serverless infrastructure with automatic scaling configuration
-4. **API Integration**: Expose the agent through a REST API endpoint that accepts topics and returns generated content
+1. **コンテナ化**：CrewAIアプリケーション、Ollamaランタイム、言語モデルをDockerコンテナにパッケージ化
+2. **ハンドラー定義**：受信リクエストを処理し、AIエージェントを調整するPython関数を作成
+3. **サーバーレスデプロイメント**：自動スケーリング設定でコンテナをRunPodのサーバーレスインフラストラクチャにデプロイ
+4. **API統合**：トピックを受け入れて生成されたコンテンツを返すREST APIエンドポイントを通じてエージェントを公開
 
-This approach transforms a complex multi-component AI system into a simple API call, with all infrastructure concerns handled automatically.
+このアプローチは、複雑なマルチコンポーネントAIシステムを単純なAPI呼び出しに変換し、すべてのインフラストラクチャの懸念事項は自動的に処理されます。
 
-### Key Benefits
+### 主な利点
 
-The serverless approach offers several advantages:
-- **Automatic Scaling**: Containers spin up and down based on request volume
-- **Cost Efficiency**: Pay only for actual compute time, not idle resources
-- **Zero Infrastructure Management**: No need to configure servers or handle scaling logic
-- **Built-in Load Balancing**: RunPod distributes requests across available workers
+サーバーレスアプローチには以下のような利点があります：
+- **自動スケーリング**：リクエスト量に基づいてコンテナが起動および停止
+- **コスト効率**：アイドルリソースではなく、実際のコンピューティング時間に対してのみ支払い
+- **インフラストラクチャ管理ゼロ**：サーバーの設定やスケーリングロジックの処理が不要
+- **組み込みロードバランシング**：RunPodが利用可能なワーカー間でリクエストを分散
 
-## Signing up for RunPod
+## RunPodへのサインアップ
 
-### Sign Up Page
-Visit the [RunPod Sign Up Page](https://get.runpod.io/nirdiamant) to create your account.
+### サインアップページ
+[RunPodサインアップページ](https://get.runpod.io/nirdiamant)にアクセスしてアカウントを作成してください。
 
-## Preparing Application for RunPod
+## RunPod用のアプリケーションの準備
 
-### Understanding Serverless endpoints
+### サーバーレスエンドポイントの理解
 
-RunPod provides a cloud-compute platform for dockerized applications, where you can bind a python function, using RunPod's `runpod SDK`, to execute when your RunPod endpoint gets hit.
+RunPodは、dockerizedアプリケーション用のクラウドコンピューティングプラットフォームを提供し、RunPodの`runpod SDK`を使用してRunPodエンドポイントがヒットされたときに実行されるPython関数をバインドできます。
 
-So the steps we need to take are:
-- Defining the Handler
-- Containerizing Our Application
-- Deploying our application to RunPod
-- Testing our application
-- Understanding future maintenance
+必要な手順は以下のとおりです：
+- ハンドラーの定義
+- アプリケーションのコンテナ化
+- RunPodへのアプリケーションのデプロイ
+- アプリケーションのテスト
+- 将来のメンテナンスの理解
 
-### Defining the Handler
+### ハンドラーの定義
 
-Binding a python function to execute is simple. Using the SDK we simply bind a python function using the following line: `runpod.serverless.start({"handler": handler})`. This allows us to define an entry-point for your agent to execute based off the request sent to your RunPod endpoint.
+Python関数を実行にバインドするのは簡単です。SDKを使用して、次の行で単純にPython関数をバインドします：`runpod.serverless.start({"handler": handler})`。これにより、RunPodエンドポイントに送信されたリクエストに基づいてエージェントを実行するエントリポイントを定義できます。
 
-The entry point function is expected to be able to take in a JSON request structured such as:
+エントリポイント関数は、以下のような構造のJSONリクエストを受け取ることが期待されます：
 
 ```python
 {
@@ -87,44 +87,44 @@ The entry point function is expected to be able to take in a JSON request struct
 }
 ```
 
-So referencing our `handler.py` [in our example code](./crew-ai-ollama-runpod-tutorial/handler.py) we can see the most important section where we define such a handler to take in a topic from the user's request and run our researching function.
+[サンプルコード](./crew-ai-ollama-runpod-tutorial/handler.py)の`handler.py`を参照すると、ユーザーのリクエストからトピックを受け取り、調査機能を実行するハンドラーを定義する最も重要なセクションを確認できます。
 
 ```python
 import runpod
 ...
 
 def create_blog_post(topic):
-    """Creates a blog post on the given topic using CrewAI"""
-    # Create the task for our topic
+    """CrewAIを使用して指定されたトピックのブログ投稿を作成"""
+    # トピック用のタスクを作成
     blog_task = Task(
         description=f"""
-        Write a blog post about {topic}.
+        {topic}についてのブログ投稿を書く。
         
-        Your blog should:
-        1. Have an attention-grabbing title
-        2. Include a brief introduction that hooks the reader
-        3. Present 3-4 main points supported by research
-        4. End with a conclusion and potentially a call to action
+        ブログには以下を含める：
+        1. 注目を集めるタイトル
+        2. 読者を引き込む簡潔な導入部
+        3. 調査に裏付けられた3-4の主要ポイント
+        4. 結論と潜在的な行動喚起で締めくくる
         ...
 
 def handler(job):
-    """Handler function that will be used to process jobs."""
+    """ジョブを処理するために使用されるハンドラー関数。"""
     job_input = job["input"]
     
-    # Extract the topic from job input, default to "technology" if not provided
+    # ジョブ入力からトピックを抽出、提供されていない場合はデフォルトで"technology"
     topic = job_input.get("topic", "technology")
     
     try:
-        # Generate blog post using CrewAI
+        # CrewAIを使用してブログ投稿を生成
         blog_post = create_blog_post(topic)
         
-        # Return successful response
+        # 成功レスポンスを返す
         return {
             "status": "success",
             "blog_post": blog_post
         }
     except Exception as e:
-        # Return error response if something goes wrong
+        # エラーが発生した場合はエラーレスポンスを返す
         return {
             "status": "error",
             "message": str(e)
@@ -134,17 +134,17 @@ def handler(job):
 runpod.serverless.start({"handler": handler})
 ```
 
-### Containerizing Our Application
+### アプリケーションのコンテナ化
 
-Using Docker, we can "containerize" our application by packaging all dependencies, code, and runtime environment into a portable container. This ensures our AI agent runs consistently across different environments - from your local machine to RunPod's servers. The container includes everything needed: the base operating system, Python packages, the Ollama model, and our application code, eliminating "it works on my machine" issues.
+Dockerを使用して、すべての依存関係、コード、ランタイム環境をポータブルコンテナにパッケージ化することで、アプリケーションを「コンテナ化」できます。これにより、AIエージェントがローカルマシンからRunPodのサーバーまで、異なる環境で一貫して実行されることが保証されます。コンテナには必要なものがすべて含まれています：ベースオペレーティングシステム、Pythonパッケージ、Ollamaモデル、アプリケーションコードで、「私のマシンでは動作する」問題を排除します。
 
-#### Important Highlights of Our Dockerfile
+#### Dockerfileの重要な要点
 
 FROM runpod/pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04
 
 ...
 
-# Install Python dependencies
+# Python依存関係のインストール
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && \
     pip install uv && \
@@ -155,7 +155,7 @@ RUN pip install --upgrade pip && \
 
 ...
 
-# Download model during build with better handling
+# ビルド中にモデルをダウンロード（より良い処理で）
 RUN ollama serve > /dev/null 2>&1 & \
     sleep 25 && \
     ollama pull openhermes && \
@@ -164,21 +164,21 @@ RUN ollama serve > /dev/null 2>&1 & \
 
 ...
 
-# Startup script
+# 起動スクリプト
 CMD ["/start.sh"]
 
-#### Main Points
+#### 主要ポイント
 
-When containerizing our application, we're just looking to create a replicable environment that we can start off in. RunPod actually provides a variety of Docker images and templates.
+アプリケーションをコンテナ化する際は、開始できる複製可能な環境を作成することを目指しています。RunPodは実際にさまざまなDockerイメージとテンプレートを提供しています。
 
 ![example](assets/docker_templates.png)
 
-##### Base template
-In this case, `runpod/pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04` is serving as our base template as it has a variety of packages already installed and provides an easy base to add more packages on top.
+##### ベーステンプレート
+この場合、`runpod/pytorch:2.0.1-py3.10-cuda11.8.0-devel-ubuntu22.04`がベーステンプレートとして機能しており、すでにインストールされているさまざまなパッケージがあり、その上にさらにパッケージを追加するための簡単なベースを提供します。
 
-##### Installing Python dependencies
+##### Python依存関係のインストール
 
-In the next step, we simply just download our required Python packages, mainly crewAI.
+次のステップでは、必要なPythonパッケージ（主にcrewAI）をダウンロードします。
 
 ```dockerfile
 COPY requirements.txt /requirements.txt
@@ -190,8 +190,8 @@ RUN pip install --upgrade pip && \
     python -c "import crewai_tools; print('CrewAI Tools import successful')"
 ```
 
-##### Installing Ollama
-Finally, the Ollama model is downloaded to have it baked into the image.
+##### Ollamaのインストール
+最後に、Ollamaモデルをダウンロードしてイメージに組み込みます。
 ```dockerfile
 RUN ollama serve > /dev/null 2>&1 & \
     sleep 25 && \
@@ -200,25 +200,25 @@ RUN ollama serve > /dev/null 2>&1 & \
     pkill ollama
 ```
 
-#### Considerations
-When building this Dockerfile, the way that Serverless works is that RunPod downloads, caches, and initializes a Docker container when a request is made. This means that if possible, it is better to download models into the image itself so that when a container gets spun up, it already has the necessary resources.
+#### 考慮事項
+このDockerfileを構築する際、サーバーレスの動作方法は、リクエストが行われたときにRunPodがDockerコンテナをダウンロード、キャッシュ、初期化することです。つまり、可能であれば、コンテナが起動したときに必要なリソースがすでに備わっているように、モデルをイメージ自体にダウンロードする方が良いということです。
 
-If on execution, additional resources need to be downloaded such as an Ollama model, then this can add delay to the response. Thus, why it is better to try to bake in a model to the Docker image.
+実行時にOllamaモデルなどの追加リソースをダウンロードする必要がある場合、これは応答に遅延を追加する可能性があります。したがって、モデルをDockerイメージに組み込む方が良いのです。
 
-## Deploying Our Application
+## アプリケーションのデプロイ
 
-When you go to the Serverless tab, you have two options when deploying a "New Endpoint": Docker Image or Github Repo.
+サーバーレスタブに移動すると、「新しいエンドポイント」をデプロイする際に2つのオプションがあります：DockerイメージまたはGithubリポジトリ。
 
 ![example](assets/endpoint_creation_options.png)
 ![example](assets/endpoint_source_selection.png)
 
-### Github Integration
+### Github統合
 
-By connecting your Github Repo, RunPod will automatically build and deploy the image for you. The image will get pushed directly to RunPod.
+GithubリポジトリをConnectすることで、RunPodが自動的にイメージをビルドしてデプロイします。イメージはRunPodに直接プッシュされます。
 
-### Docker Image
+### Dockerイメージ
 
-You can also build your own docker image. So in this case, for the github repository, it can be built and pushed to Dockerhub using the following command:
+独自のDockerイメージをビルドすることもできます。この場合、githubリポジトリ用に、以下のコマンドを使用してビルドし、Dockerhubにプッシュできます：
 
 ```bash
 docker build -t justinrunpod/agents:1.0 . --push --platform linux/amd64
@@ -226,43 +226,43 @@ docker build -t justinrunpod/agents:1.0 . --push --platform linux/amd64
 
 ![example](assets/docker_image_selection.png)
 
-### Selecting Hardware
+### ハードウェアの選択
 
-After selecting to use a Docker Image or a Github Repo, you will be asked to select the hardware you want to dynamically allocate.
+DockerイメージまたはGithubリポジトリの使用を選択した後、動的に割り当てたいハードウェアを選択するよう求められます。
 
-There are a pool of GPUs that RunPod provides, and RunPod will automatically rotate through your priority selection of GPUs based off of availability. 
+RunPodが提供するGPUのプールがあり、RunPodは可用性に基づいてGPUの優先順位選択を自動的にローテーションします。
 
 ![example](assets/hardware_selection.png)
 ![example](assets/gpu_prioritization.png)
 
-### Min and Max Workers
+### 最小および最大ワーカー
 
-Workers are the container instances that get initialized when your endpoint receives a request. You'll see the workers in usually an `idle` state, meaning they are on standby for when a request comes in.
+ワーカーは、エンドポイントがリクエストを受信したときに初期化されるコンテナインスタンスです。通常、ワーカーは`idle`状態で表示され、リクエストが来るのを待機していることを意味します。
 
-You only pay for when the worker has actual compute time in spinning up and executing upon a request - you do not pay for an `idle` state.
+ワーカーがリクエストに対して起動して実行する実際のコンピューティング時間に対してのみ支払い、`idle`状態に対しては支払いません。
 
-#### Note:
+#### 注意：
 ![example](assets/worker_allocation.png)
 
-When you create the workers, even though you might have defined `3` max workers, RunPod will try to allocate an extra couple of workers to help swap out any workers that are `throttled` (being used), if necessary. This way your application will optimally always have the `max workers` you defined on `idle` and ready to respond.
+ワーカーを作成するとき、`3`つの最大ワーカーを定義したとしても、RunPodは必要に応じて`throttled`（使用中）のワーカーを交換するのに役立つ追加のワーカーをいくつか割り当てようとします。これにより、アプリケーションは定義した`最大ワーカー`が常に`idle`で応答準備ができている状態を最適に維持できます。
 
 ### FlashBoot
 
-If your application has high volume, FlashBoot is a RunPod feature that reduces cold-starts, the initial loading time to turn on a machine and load resources into memory. Cold-starts are the delay users experience when a serverless function needs to initialize from scratch - this can include spinning up containers, loading models into memory, and establishing connections. FlashBoot enables this startup time to be minimal, especially for applications that have higher traffic demand.
+アプリケーションのボリュームが多い場合、FlashBootはコールドスタートを削減するRunPodの機能です。コールドスタートとは、マシンを起動してメモリにリソースをロードする初期読み込み時間です。コールドスタートは、サーバーレス関数がゼロから初期化する必要があるときにユーザーが経験する遅延です - これには、コンテナの起動、メモリへのモデルのロード、接続の確立が含まれます。FlashBootにより、特にトラフィック需要が高いアプリケーションの場合、この起動時間を最小限に抑えることができます。
 
-## Testing our Application
+## アプリケーションのテスト
 
-### Endpoint
-In the dashboard, you can see that there is an endpoint you can make a request to. You can either run a test request directly in the dashboard or make a request programatically.
+### エンドポイント
+ダッシュボードでは、リクエストを行うことができるエンドポイントが表示されます。ダッシュボードで直接テストリクエストを実行するか、プログラムでリクエストを行うことができます。
 
-### Built-in Dashboard
-Using the request tab inside of RunPod you can actually run a test request directly in browser.
+### 組み込みダッシュボード
+RunPod内のリクエストタブを使用すると、ブラウザで直接テストリクエストを実行できます。
 ![example](assets/test_request_dashboard.png)
 ![example](assets/test_request_input.png)
 ![example](assets/test_request_output.png)
 
 ### cURL / Python / Javascript
-After you make an API Key, you can make a request programatically to your endpoint.
+APIキーを作成した後、エンドポイントにプログラムでリクエストを行うことができます。
 
 ```bash
 curl --request POST \
@@ -279,29 +279,29 @@ curl --request POST \
 '
 ```
 
-## Future Maintenance
+## 将来のメンテナンス
 
-### Docker Image New Releases
-If you ever have a new release, you can provide an updated Docker image. When doing so, it will do a rolling update where once ready will seamlessly swap in your workers to the new image.
+### Dockerイメージの新しいリリース
+新しいリリースがある場合は、更新されたDockerイメージを提供できます。その際、準備ができたら新しいイメージにワーカーをシームレスに交換するローリングアップデートが行われます。
 
 ![example](assets/docker_image_update.png)
 
-### Github Integration
-If you ever make a new commit to Github, you'll see a new release automatically deployed and rolled-out for you.
+### Github統合
+Githubに新しいコミットを行うと、新しいリリースが自動的にデプロイされ、ロールアウトされることがわかります。
 
 ![example](assets/github_integration_update.png)
 
-## Conclusion
+## 結論
 
-In this tutorial, we've walked through the entire process of deploying AI agents using RunPod's serverless infrastructure. Here's a summary of what we've accomplished:
+このチュートリアルでは、RunPodのサーバーレスインフラストラクチャを使用してAIエージェントをデプロイするプロセス全体を説明しました。達成したことの要約は以下のとおりです：
 
-1. **Set up a RunPod account** and explored the platform
-2. **Prepared our application** by defining a handler function that responds to API requests
-3. **Containerized our application** using Docker, including baking in the Ollama model for faster response times
-4. **Deployed our application** to RunPod using their serverless infrastructure
-5. **Tested our application** through both the dashboard interface and programmatic API calls
-6. **Learned about maintaining** our application through Docker image updates and GitHub integration
+1. **RunPodアカウントを設定**し、プラットフォームを探索
+2. **アプリケーションを準備**し、APIリクエストに応答するハンドラー関数を定義
+3. **アプリケーションをコンテナ化**し、Dockerを使用してより高速な応答時間のためにOllamaモデルを組み込み
+4. **アプリケーションをデプロイ**し、サーバーレスインフラストラクチャを使用してRunPodに展開
+5. **アプリケーションをテスト**し、ダッシュボードインターフェースとプログラムによるAPI呼び出しの両方を通じて確認
+6. Dockerイメージの更新とGitHub統合を通じて**アプリケーションの保守について学習**
 
-This serverless approach allows you to deploy AI agents that can scale automatically based on demand without requiring you to manage the underlying infrastructure. You only pay for the compute time you actually use, making it cost-effective for both low and high-volume applications.
+このサーバーレスアプローチにより、基盤となるインフラストラクチャを管理することなく、需要に基づいて自動的にスケーリングできるAIエージェントをデプロイできます。実際に使用したコンピューティング時間に対してのみ支払うため、低ボリュームと高ボリュームの両方のアプリケーションに対してコスト効率的です。
 
-The foundations covered in this tutorial enable you to deploy complex AI workflows that can scale from prototype to production without requiring extensive DevOps expertise or infrastructure investment.
+このチュートリアルでカバーした基礎により、広範なDevOpsの専門知識やインフラストラクチャへの投資を必要とすることなく、プロトタイプから本番環境までスケーリングできる複雑なAIワークフローをデプロイできるようになります。

@@ -1,52 +1,52 @@
 ![](https://europe-west1-atp-views-tracker.cloudfunctions.net/working-analytics?notebook=tutorials--docker-intro--readme)
 
-# Introduction to Docker
-## Overview
+# Docker入門
+## 概要
 
-Docker is a core CI/CD tool and industry standard for containerization. It is widely used across DevOps, MLOps, and developers who deploy code and applications in production. Docker has a steep learning curve, and this tutorial aims to help you understand what Docker is and its benefits in using it in your development workflow. In this tutorial, we will dive into the foundation of Docker. We will start with an overview of Docker and then dive into basic concepts and operations, such as building an image and running it as a container.
-
-
-## Why Docker Matters for AI Agent Development
-
-If you're building AI agents for production, Docker isn't just a nice-to-have - it's essential. Modern AI agents rely on complex ecosystems of dependencies: specific Python versions, machine learning libraries, vector databases, API clients, and often GPU drivers. Without containerization, what works perfectly in your development environment can break spectacularly in production due to version conflicts, missing dependencies, or environmental differences. Docker ensures your AI agent runs consistently whether it's on your laptop, a cloud server, or a Kubernetes cluster. More importantly, as your agents scale from prototype to production, Docker enables seamless deployment, automatic scaling, and reliable updates - turning your experimental AI code into robust, production-ready applications that enterprises can depend on.
+DockerはコアなCI/CDツールであり、コンテナ化の業界標準です。DevOps、MLOps、そして本番環境でコードやアプリケーションをデプロイする開発者に広く使用されています。Dockerには急峻な学習曲線があり、このチュートリアルはDockerとは何か、そして開発ワークフローでの使用における利点を理解できるようにすることを目的としています。このチュートリアルでは、Dockerの基礎について深く掘り下げます。Dockerの概要から始め、イメージの構築やコンテナとしての実行などの基本的な概念と操作について学びます。
 
 
-> They say that a picture is worth a thousand words, and the following image from [reddit](https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/) is self explanatory about the motivation behind Docker: 
+## AIエージェント開発においてDockerが重要な理由
+
+本番環境向けのAIエージェントを構築している場合、Dockerは「あったらいいもの」ではなく、必須です。現代のAIエージェントは複雑な依存関係のエコシステムに依存しています：特定のPythonバージョン、機械学習ライブラリ、ベクターデータベース、APIクライアント、そして多くの場合GPUドライバーなど。コンテナ化なしでは、開発環境で完璧に動作するものが、バージョンの競合、依存関係の欠落、または環境の違いにより本番環境で大失敗する可能性があります。Dockerは、AIエージェントがラップトップ、クラウドサーバー、またはKubernetesクラスター上で一貫して動作することを保証します。さらに重要なことに、エージェントがプロトタイプから本番環境にスケールする際、Dockerはシームレスなデプロイメント、自動スケーリング、信頼性の高い更新を可能にし、実験的なAIコードを企業が依存できる堅牢でプロダクション対応のアプリケーションに変えます。
+
+
+> 「一枚の絵は千の言葉に値する」と言われますが、[reddit](https://www.reddit.com/r/ProgrammerHumor/comments/cw58z7/it_works_on_my_machine/)からの以下の画像は、Dockerの背後にある動機について自明です：
 
 
 <br>
 <br /><figure>
  <img src="assets/docker-meme.jpg" width="70%" align="center"/></a>
-<figcaption> Docker meme (source: reddit)</figcaption>
+<figcaption> Dockerミーム（出典：reddit）</figcaption>
 </figure>
 
 <br>
 <br />
 
 
-## Scope
+## 範囲
 
-This tutorial will cover the following topics:
-- What is Docker?
-- The Dockerfile
-- Building an image
-- Running a container
-- Mounting volumes
-- Dockerize AI Agent 
+このチュートリアルでは以下のトピックをカバーします：
+- Dockerとは何か？
+- Dockerfile
+- イメージの構築
+- コンテナの実行
+- ボリュームのマウント
+- AIエージェントのDocker化
 
-## Prerequisites
+## 前提条件
 
-This is a beginner level tutorial, and it does not require any prior knowledge. However, it is recommended that you have some basic understanding of command line commands. 
+これは初心者レベルのチュートリアルであり、事前知識は必要ありません。ただし、コマンドラインコマンドの基本的な理解があることが推奨されます。
 
-To run the examples in this tutorial you will need:
-- Docker Desktop (or equivalent) installed on your computer
-- Docker Hub account
+このチュートリアルの例を実行するには以下が必要です：
+- Docker Desktop（または同等のもの）がコンピューターにインストールされていること
+- Docker Hubアカウント
 
-### Installing Docker Desktop
+### Docker Desktopのインストール
  
-Docker was built to run on Linux OS, and therefore, it cannot run natively on other OSs such as macOS and Windows. The Docker Desktop provides the necessary virtual environment on which you can run Docker containers outside of Linux OS. In addition, it provides a GUI interface for managing the alocated resources and containers.
+DockerはLinux OS上で動作するように構築されているため、macOSやWindowsなどの他のOSではネイティブに実行できません。Docker Desktopは、Linux OS以外でDockerコンテナを実行できる必要な仮想環境を提供します。さらに、割り当てられたリソースとコンテナを管理するためのGUIインターフェースを提供します。
 
-To install Docker Desktop, go to [Docker website](https://www.docker.com/products/docker-desktop) and follow the instructions for your operating system: 
+Docker Desktopをインストールするには、[Dockerのウェブサイト](https://www.docker.com/products/docker-desktop)にアクセスし、お使いのオペレーティングシステム用の指示に従ってください：
 
 <br>
 <br /><figure>
@@ -57,18 +57,18 @@ To install Docker Desktop, go to [Docker website](https://www.docker.com/product
 <br>
 <br />
 
-After you have installed Docker Desktop, it should launch it automatically. If it does not launch automatically, click on the icon in the top right corner of the screen (on macOS).
+Docker Desktopをインストールすると、自動的に起動するはずです。自動的に起動しない場合は、画面の右上隅にあるアイコンをクリックしてください（macOSの場合）。
 
-You can validate from the terminal if Docker is running by typing `docker --version`:
+ターミナルから`docker --version`と入力して、Dockerが実行されているかどうかを確認できます：
 ```shell
 >docker --version                                                          
 Docker version 28.0.4, build b8034c0
 ```
 
 
-### Setting Up Docker Hub Account
+### Docker Hubアカウントの設定
 
-Docker Hub is a public repository that allows you to store, share, and run your containers (as GitHub enables you to store and maintain code). To set up your Docker Hub account, go to [Docker Hub](https://hub.docker.com/) and follow the instructions.
+Docker Hubは、コンテナを保存、共有、実行できる公開リポジトリです（GitHubがコードの保存と保守を可能にするのと同様）。Docker Hubアカウントを設定するには、[Docker Hub](https://hub.docker.com/)にアクセスして指示に従ってください。
 
 
 <br>
@@ -81,112 +81,112 @@ Docker Hub is a public repository that allows you to store, share, and run your 
 <br />
 
 
-## What is Docker?
+## Dockerとは何か？
 
-Docker is a CI/CD tool that enables seamless code development and deployment into different environments (i.e., local to remote, etc.). By creating OS-level virtualization, an application and its dependencies can be packaged in a virtual container and shipped between different environments.
+DockerはCI/CDツールであり、異なる環境（ローカルからリモートなど）へのシームレスなコード開発とデプロイメントを可能にします。OSレベルの仮想化を作成することで、アプリケーションとその依存関係を仮想コンテナにパッケージ化し、異なる環境間で転送できます。
 
-The main advantages of using Docker within your development environment are:
+開発環境内でDockerを使用する主な利点は：
 
-- **Reproducibility** - Docker enables you to seamlessly package your code and its dependencies into a single container and execute, test, share, and deploy code with a high level of consistency
-- **Collaboration** - Docker solves the dependencies madness when a team of developers works together on a specific project. Having a unified environment saves a ton of time during the development step. For example, if one developer gets some error, it is easy for other developers to reproduce the error and help debug it
-- **Deployment** - Docker simplifies the code shipment from the development environment to the production
+- **再現性** - Dockerを使用すると、コードとその依存関係を単一のコンテナにシームレスにパッケージ化し、高い一貫性レベルでコードを実行、テスト、共有、デプロイできます
+- **コラボレーション** - Dockerは、開発者チームが特定のプロジェクトで一緒に作業する際の依存関係の混乱を解決します。統一された環境を持つことで、開発段階で大量の時間を節約できます。例えば、ある開発者がエラーを受け取った場合、他の開発者がそのエラーを再現してデバッグを支援することが簡単になります
+- **デプロイメント** - Dockerは開発環境から本番環境へのコードの移送を簡素化します
 
 
-## The Reproducibility Problem
+## 再現性の問題
 
-Docker was built to solve a common DevOps problem - the lack of reproducibility when shifting code between different environments (e.g., the developer's local and production environments). Reproducibility is not limited to DevOps, and it plays a critical role in data science and AI.
+Dockerは一般的なDevOpsの問題を解決するために構築されました - 異なる環境（例：開発者のローカル環境と本番環境）間でコードを転送する際の再現性の欠如です。再現性はDevOpsに限定されず、データサイエンスとAIにおいて重要な役割を果たします。
 
->We can define reproducibility as the ability to generate the exact outcome when running the same code regardless of the user or machine on which the code is running.
+>再現性を、コードが実行されるユーザーやマシンに関係なく、同じコードを実行したときに正確に同じ結果を生成する能力として定義できます。
 
-The first time I heard the term reproducibility was during my bachelor's degree, where I learned that reproducibility starts and ends by setting a seed number to lock down random numbers. My favorite seed number is 12345. When I started to work as a data scientist, I realized that reproducibility goes beyond setting a seed number. Here are the main elements that can impact code reproducibility:
+私が再現性という用語を初めて聞いたのは学士号取得中で、再現性はシード番号を設定して乱数をロックダウンすることで始まり終わると学びました。私のお気に入りのシード番号は12345です。データサイエンティストとして働き始めたとき、再現性はシード番号の設定を超えるものだと気づきました。コードの再現性に影響を与える可能性のある主な要素は次のとおりです：
 
-- **Version control** — First and foremost, reproducing the same results starts with the ability to track changes in your code 
-- **Randomization** — Controlling the random generation of numbers by setting the seed number
-- **Software version** — The versions of your Python or R (or any other programming language) and its dependencies (e.g., libraries) impact the outcome of your code. For example, code that was built with pandas v1.0 may not run on v2.0 due to deprecation of functions
-- **Operating System (OS)** — Most programming languages, particularly R and Python, use different compilers (e.g., C, C++, etc.) and other built-in OS components. The type of OS and its version could impact the outcome of your code
-- **Hardware** — Last but not, the type of hardware (or infrastructure) could impact your results (ARM/Intel/Apple processor, etc)
+- **バージョン管理** — 何よりもまず、同じ結果を再現することは、コードの変更を追跡する能力から始まります
+- **ランダム化** — シード番号を設定することによる乱数生成の制御
+- **ソフトウェアバージョン** — Python、R（または他のプログラミング言語）のバージョンとその依存関係（ライブラリなど）がコードの結果に影響を与えます。例えば、pandas v1.0で構築されたコードは、関数の非推奨化によりv2.0では動作しない可能性があります
+- **オペレーティングシステム（OS）** — ほとんどのプログラミング言語、特にRとPythonは、異なるコンパイラ（C、C++など）や他の組み込みOSコンポーネントを使用します。OSの種類とそのバージョンがコードの結果に影響を与える可能性があります
+- **ハードウェア** — 最後に、ハードウェア（またはインフラストラクチャ）の種類が結果に影響を与える可能性があります（ARM/Intel/Appleプロセッサなど）
 
-In a regular data science workflow, reproducibility is dependent on several factors. One of the most basic and trivial elements of reproducibility is code versioning. Using unversioned code makes it impossible to track changes in your code or verify that the same code runs on different environments, and that was the reason that Git was born.
+通常のデータサイエンスワークフローでは、再現性はいくつかの要因に依存します。再現性の最も基本的で些細な要素の1つはコードのバージョニングです。バージョン管理されていないコードを使用すると、コードの変更を追跡したり、同じコードが異なる環境で実行されることを確認したりすることが不可能になり、それがGitが生まれた理由です。
 
-Another critical factor is package versioning. Over time, packages and their dependencies tend to change and evolve, get new features, bug fixes, replace and deprecate old functions. In some cases, running your code using a specific package version may not work or yield the same results as older or newer versions of the package. For example, code written with Pandas 1.x may not work with Pandas 2.x, and vice versa.
+もう1つの重要な要因はパッケージのバージョニングです。時間の経過とともに、パッケージとその依存関係は変化し進化し、新機能の追加、バグ修正、古い関数の置換と非推奨化が行われる傾向があります。場合によっては、特定のパッケージバージョンを使用してコードを実行すると、古いバージョンや新しいバージョンのパッケージと同じ結果が得られなかったり、動作しなかったりすることがあります。例えば、Pandas 1.xで書かれたコードはPandas 2.xでは動作しない可能性があり、その逆も同様です。
 
-Similarly, programming languages tend to change over time, and using code built with older versions may not work or be supported with recent ones. Moreover, different operating systems use different software architectures or run different types of compilers (c, c++, etc.) on the backend. This difference may impact the reproducibility of your code.
+同様に、プログラミング言語は時間とともに変化する傾向があり、古いバージョンで構築されたコードを使用すると、最新のバージョンでは動作しなかったりサポートされなかったりする可能性があります。さらに、異なるオペレーティングシステムは異なるソフトウェアアーキテクチャを使用したり、バックエンドで異なるタイプのコンパイラ（c、c++など）を実行したりします。この違いがコードの再現性に影響を与える可能性があります。
 
-Lastly, the type of CPU architecture (ARM, Intel, Apple Silocon, etc.) may impact the underlying software. Some packages or software may require a separate build or may not be supported, which can ultimately affect the reproducibility of your code.
+最後に、CPUアーキテクチャのタイプ（ARM、Intel、Apple Siliconなど）が基礎となるソフトウェアに影響を与える可能性があります。一部のパッケージやソフトウェアは別のビルドが必要であったり、サポートされていなかったりする可能性があり、最終的にコードの再現性に影響を与える可能性があります。
 
-Below is Figure 1, which illustrates the factors affecting code reproducibility when transferring between different environments
+以下の図1は、異なる環境間で転送する際のコードの再現性に影響を与える要因を示しています
 
 
 <br>
 <br /><figure>
  <img src="assets/reproducibility without Docker.png" width="100%" align="center"/></a>
-<figcaption> Figure 1: Reproducibility without Docker (and Git)</figcaption>
+<figcaption> 図1：Docker（およびGit）なしの再現性</figcaption>
 </figure>
 
 <br>
 <br />
 
-Git provides a solution for versioning and monitoring code, ensuring that it can be reproduced correctly regardless of the user or machine it runs on, as long as it is used properly. Docker and similar solutions address the problem of environment mismatches by creating an isolated environment within a container that can be shipped along with the code to any remote machine, such as a desktop, laptop, or server, allowing for seamless reproduction of the process.
+Gitはコードのバージョニングと監視のソリューションを提供し、適切に使用されている限り、実行されるユーザーやマシンに関係なく正確に再現できることを保証します。Dockerや同様のソリューションは、コンテナ内に分離された環境を作成することで環境の不一致の問題に対処し、その環境をコードとともにデスクトップ、ラップトップ、サーバーなどの任意のリモートマシンに転送でき、プロセスをシームレスに再現できます。
 
-While developing software on different hardware architectures, such as Apple Silicon and Intel-based machines, there may be potential differences in the environment. Docker can partially address this issue by creating a dedicated image for each CPU architecture. However, this approach can be time-consuming and expensive since additional tests are required to ensure that all containers have the exact same characteristics.
+Apple SiliconやIntelベースのマシンなど、異なるハードウェアアーキテクチャ上でソフトウェアを開発する場合、環境に潜在的な違いがある可能性があります。Dockerは各CPUアーキテクチャ用の専用イメージを作成することで、この問題に部分的に対処できます。ただし、すべてのコンテナがまったく同じ特性を持つことを確認するために追加のテストが必要となるため、このアプローチは時間がかかり、コストがかかる可能性があります。
 
-Figure 2 demonstrates a general workflow with Docker and Git. We use Git and GitHub/Gitlab/Bitbucket (or any similar service) to code version control. Docker is used to set up a containerized environment, which will be used for code development and testing. We then shift our code with the container to any remote environment that supports containers (i.e., GitHub Actions, AWS, GCP, etc.).
+図2は、DockerとGitを使用した一般的なワークフローを示しています。GitとGitHub/Gitlab/Bitbucket（または同様のサービス）を使用してコードのバージョン管理を行います。Dockerを使用して、コードの開発とテストに使用されるコンテナ化された環境を設定します。次に、コンテナと一緒にコードを、コンテナをサポートする任意のリモート環境（GitHub Actions、AWS、GCPなど）に転送します。
 
 <br>
 <br /><figure>
  <img src="assets/reproducibility with Docker.png" width="100%" align="center"/></a>
-<figcaption> Figure 2: Reproducibility with Docker and Git</figcaption>
+<figcaption> 図2：DockerとGitによる再現性</figcaption>
 </figure>
 
 <br>
 <br />
 
-While this workflow provides a high level of reproducibility, it does not cover reproducibility issues you may encounter due to different hardware settings. There are different methods to address this issue, such as building a dedicated environment for each hardware architecture (more details are available [here](https://docs.docker.com/build/building/multi-platform/)).
+このワークフローは高レベルの再現性を提供しますが、異なるハードウェア設定により発生する可能性のある再現性の問題はカバーしていません。各ハードウェアアーキテクチャ用の専用環境を構築するなど、この問題に対処する様々な方法があります（詳細は[こちら](https://docs.docker.com/build/building/multi-platform/)で利用可能）。
 
-Note: Using a virtual environment is not an alternative to Docker. It actually works well together. While VE is not part of this tutorial, you can read more about the differences between VE and Docker in the following [article](https://medium.com/@rami.krispin/running-python-r-with-docker-vs-virtual-environment-4a62ed36900f).
+注：仮想環境の使用はDockerの代替ではありません。実際、一緒にうまく機能します。VEはこのチュートリアルの一部ではありませんが、VEとDockerの違いについては以下の[記事](https://medium.com/@rami.krispin/running-python-r-with-docker-vs-virtual-environment-4a62ed36900f)で詳しく読むことができます。
 
 
-## Docker Workflow
+## Dockerワークフロー
 
-This section focuses on the essential Docker workflow and requirements that will enable you to build your image and run it inside a container. The basic Docker workflow includes the following steps:
-- Defining the environment requirements using Dockerfile
-- Building the image from the Dockerfile
-- Running the image as a container from the image
-- Developing and testing code in the container
-- Shipping the code in a container
+このセクションでは、イメージを構築してコンテナ内で実行できるようにする基本的なDockerワークフローと要件に焦点を当てます。基本的なDockerワークフローには以下のステップが含まれます：
+- Dockerfileを使用した環境要件の定義
+- Dockerfileからのイメージの構築
+- イメージからコンテナとしての実行
+- コンテナ内でのコードの開発とテスト
+- コンテナ内でのコードの転送
 
-> People often confuse the terms "image" and "container". An image refers to the artifact that is created by a build process, which contains the environment specifications. A container refers to the process of running the image as an instance.
+> 人々はよく「イメージ」と「コンテナ」という用語を混同します。イメージは、環境仕様を含むビルドプロセスによって作成されるアーティファクトを指します。コンテナは、イメージをインスタンスとして実行するプロセスを指します。
 
  
-Figure 3 illustrates the process of building and running an image as a container.
+図3は、イメージを構築してコンテナとして実行するプロセスを示しています。
 
 <br>
 <br /><figure>
  <img src="assets/dockerfile to container.png" width="100%" align="center"/></a>
-<figcaption> Figure 3: Docker workflow</figcaption>
+<figcaption> 図3：Dockerワークフロー</figcaption>
 </figure>
 
 <br>
 <br />
 
 
-The main components of this workflow are:
+このワークフローの主要コンポーネントは：
 
-- **Dockerfile** - the image recipe or blueprint allows us to add components and customize the dependencies according to the development environment requirements
-- **Docker CLI** - core commands to build the image and run it as a containerized environment
+- **Dockerfile** - イメージのレシピまたはブループリントにより、開発環境の要件に応じてコンポーネントを追加し、依存関係をカスタマイズできます
+- **Docker CLI** - イメージを構築してコンテナ化された環境として実行するためのコアコマンド
 
 
-In the following sections, we will break down each step of the process in more detail.
+以下のセクションでは、プロセスの各ステップをより詳細に説明します。
 
-## The Dockerfile
+## Dockerfile
 
-The `Dockerfile` provides instructions for the Docker engine on how to build the image. You can think about it as the image's recipe. It has its own unique and intuitive syntax using the following structure:
+`Dockerfile`は、イメージを構築する方法についてDockerエンジンに指示を提供します。これをイメージのレシピと考えることができます。以下の構造を使用した独自の直感的な構文があります：
 
 ``` Dockerfile
 COMMAND some instructions
 ```
 
-For example, the following `Dockerfile` imports the official Python (version 3.10) image as the base image and then uses the `apt-get update` and `apt-get install` to install the `curl` library :
+例えば、以下の`Dockerfile`は、公式のPython（バージョン3.10）イメージをベースイメージとしてインポートし、`apt-get update`と`apt-get install`を使用して`curl`ライブラリをインストールします：
 
 
 `./examples/ex1/Dockerfile`
@@ -200,37 +200,37 @@ ENV PYTHON_VER=3.10
 RUN apt-get update && apt-get install -y --no-install-recommends curl
 ```
 
-In a nutshell, we used the `FROM` command to specify the image we want to import from the Docker registry (don't forget to log in to the Docker registry service you are using before building the image!). The `LABEL` command is used to set labels or comments, and the `ENV` command is used to set environment variables. Last but not least, the `RUN` command is used to run a command on the command line, in this case, to install the `curl` library.
+簡単に言えば、`FROM`コマンドを使用してDockerレジストリからインポートするイメージを指定しました（イメージを構築する前に、使用しているDockerレジストリサービスにログインすることを忘れないでください！）。`LABEL`コマンドはラベルやコメントを設定するために使用され、`ENV`コマンドは環境変数を設定するために使用されます。最後に、`RUN`コマンドはコマンドラインでコマンドを実行するために使用され、この場合は`curl`ライブラリをインストールします。
 
-Let's now review the Dockerfile core commands:
-- `FROM` - Defines the base image to use for the image's build. In most cases, unless you are building the image from scratch, you will use some base image with some pre-installed OS and some dependencies. For example, in this tutorial, we will import as our base image the official [Python image](https://hub.docker.com/_/python)
-- `LABEL` - Enables to add information about the image to the image's metadata, such as authors, maintainers, license, etc.
-- `ENV` - Uses to set environment variables
-- `ARG` - Enables to set parameters during the build time
-- `RUN` -  Allows executing CLI commands (e.g., `pip install ...`, `apt-get ...`, `apt-install...`, `wget...`, etc.) during the build time to add additional components to the base image
-- `COPY` - Enables to copy objects (e.g., files and folders) from your local system to the image 
-- `WORKDIR` - Sets the working directory inside the image
-- `EXPOSE` - Defines the port number to expose the image during the run time
-- `CMD` - Sets a default command to execute during the run time of the image
-- `ENDPOINT` - Allows configuring a container that will run as an executable
+それでは、Dockerfileのコアコマンドを確認しましょう：
+- `FROM` - イメージのビルドに使用するベースイメージを定義します。ほとんどの場合、ゼロからイメージを構築する場合を除き、事前にインストールされたOSといくつかの依存関係を持つベースイメージを使用します。例えば、このチュートリアルでは、ベースイメージとして公式の[Pythonイメージ](https://hub.docker.com/_/python)をインポートします
+- `LABEL` - イメージのメタデータに著者、メンテナー、ライセンスなどの情報を追加できます
+- `ENV` - 環境変数を設定するために使用します
+- `ARG` - ビルド時にパラメータを設定できます
+- `RUN` - ビルド時にCLIコマンド（例：`pip install ...`、`apt-get ...`、`apt-install...`、`wget...`など）を実行して、ベースイメージに追加のコンポーネントを追加できます
+- `COPY` - ローカルシステムからイメージにオブジェクト（ファイルやフォルダなど）をコピーできます
+- `WORKDIR` - イメージ内の作業ディレクトリを設定します
+- `EXPOSE` - 実行時にイメージを公開するポート番号を定義します
+- `CMD` - イメージの実行時に実行するデフォルトコマンドを設定します
+- `ENDPOINT` - 実行可能ファイルとして実行されるコンテナを設定できます
 
-Do not worry if, at this point, you do not fully understand the use cases of some of those commands. It will make more sense when we start to build images in the next section.
+この時点で、これらのコマンドのいくつかの使用例を完全に理解していなくても心配しないでください。次のセクションでイメージの構築を開始すると、より理解しやすくなります。
 
 ## Docker Build
 
-Once the `Dockerfile` is ready, the next step is to build the image using the  `docker build` command from the command line. For example, let's build the above `Dockerfile` using the `build` command from this repo root folder:
+`Dockerfile`の準備ができたら、次のステップはコマンドラインから`docker build`コマンドを使用してイメージを構築することです。例えば、このリポジトリのルートフォルダから`build`コマンドを使用して上記の`Dockerfile`を構築してみましょう：
 
 ``` shell
 docker build . -f ./examples/ex-1/Dockerfile -t rkrispin/vscode-python:ex1 
 ```
 
-Here are the arguments we used with the `build` command:
-- The `-f` tag defines the `Dockerfile` path. This argument is optional and should be used if you are calling the `build` function from a different folder than one of the `Dockerfile`
-- The `.` symbol defines the context folder of the files system as the one of the `Dockerfile`. Although we did not use the file system in this case, this enables us in other cases to call and copy files from our local folder to the image during the build time
-- The `-t` is used to set the image's name and tag (e.g., version). In this case, the image name is `rkrispin/vscode-python` and the tag is `ex1`. 
+`build`コマンドで使用した引数は次のとおりです：
+- `-f`タグは`Dockerfile`のパスを定義します。この引数はオプションであり、`Dockerfile`とは異なるフォルダから`build`関数を呼び出す場合に使用する必要があります
+- `.`記号は、ファイルシステムのコンテキストフォルダを`Dockerfile`のフォルダとして定義します。この場合、ファイルシステムを使用しませんでしたが、他の場合では、ビルド時にローカルフォルダからイメージにファイルを呼び出してコピーできます
+- `-t`はイメージの名前とタグ（例：バージョン）を設定するために使用されます。この場合、イメージ名は`rkrispin/vscode-python`で、タグは`ex1`です。
 
 
-You should expect the following output:
+以下の出力が予想されます：
 
 ``` shell
 [+] Building 94.2s (6/6) FINISHED                                                                                                                                                                                                  
@@ -268,10 +268,10 @@ You should expect the following output:
 
  ```
 
-**Note:** The above output of the build describes the different layers of the image. Don't worry if, at this point, it looks and sounds like gibberish. Reading this output type will be easier after reading the next section, which focuses on the image layers.
+**注：** 上記のビルドの出力は、イメージの異なるレイヤーを説明しています。この時点で、それが意味不明に見えても心配しないでください。次のセクションでイメージレイヤーに焦点を当てると、このタイプの出力を読むのが簡単になります。
 
 
-You can use the `docker images` command to validate that the image was created successfully:
+`docker images`コマンドを使用して、イメージが正常に作成されたことを確認できます：
 
 ``` shell
 >docker images
@@ -279,24 +279,24 @@ REPOSITORY                             TAG       IMAGE ID       CREATED        S
 rkrispin/vscode-python                 ex1       a8e4c6d06c97   43 hours ago   1.02GB
 ```
 
-The next section will focus on the image layers and caching process.
+次のセクションでは、イメージレイヤーとキャッシングプロセスに焦点を当てます。
 
 
-### The image layers
+### イメージレイヤー
 
-The build process of Docker's images is based on layers. Depending on the context, the docker engine takes each one of the `Dockerfile` commands during the build time and translates it either into layer or metadata. `Dockerfile` commands, such as `FROM` and `RUN` are translated into a layer, and commands, such as `LABEL`, `ARG`, `ENV`, and `CMD` are translated into metadata. For example, we can observe in the output of the build of `rkrispin/vscode-python` image above that there are two layers:
-- The first layer started with `[1/2] FROM...`, corresponding to the `FROM python:3.10` line on the `Dockerfile`, which imports the Python 3.10 official image
-- The second layer started with `[2/2] RUN apt-get...`, corresponding  to the `RUN` command on the `Dockerfile`
+Dockerのイメージのビルドプロセスはレイヤーに基づいています。コンテキストに応じて、dockerエンジンはビルド時に`Dockerfile`の各コマンドを取得し、レイヤーまたはメタデータに変換します。`FROM`や`RUN`などの`Dockerfile`コマンドはレイヤーに変換され、`LABEL`、`ARG`、`ENV`、`CMD`などのコマンドはメタデータに変換されます。例えば、上記の`rkrispin/vscode-python`イメージのビルドの出力で、2つのレイヤーがあることがわかります：
+- 最初のレイヤーは`[1/2] FROM...`で始まり、`Dockerfile`の`FROM python:3.10`行に対応し、Python 3.10公式イメージをインポートします
+- 2番目のレイヤーは`[2/2] RUN apt-get...`で始まり、`Dockerfile`の`RUN`コマンドに対応します
 <br>
 <br /><figure>
 <img src="assets/docker-layers.png" width="100%" align="center"/></a>
-<figcaption> Figure 4 - Example of a build output with respect to the Dockerfile</figcaption>
+<figcaption> 図4 - Dockerfileに関するビルド出力の例</figcaption>
 </figure>
 
 <br>
 <br />
 
-The `docker inspect` command returns the image metadata details in a JSON format. That includes the environment variables, labels, layers and general metadata. In the following example, we will use [jq](https://jqlang.github.io/jq/) to extract the layers' information from the metadata JSON file:
+`docker inspect`コマンドは、イメージのメタデータの詳細をJSON形式で返します。これには、環境変数、ラベル、レイヤー、一般的なメタデータが含まれます。以下の例では、[jq](https://jqlang.github.io/jq/)を使用してメタデータJSONファイルからレイヤー情報を抽出します：
 
 ``` shell
 > docker inspect rkrispin/vscode-python:ex1 | jq '.[] | .RootFS'
@@ -317,7 +317,7 @@ The `docker inspect` command returns the image metadata details in a JSON format
 
 ```
 
-As you can see from the image's layers output above, the `rkrispin/vscode-python:ex1` image has nine layers. Each layer is represented by its hash key (e.g., `sha256:...`), and it is cached on the backend. While we saw on the build output that the docker engine triggered two processes from the `FROM` and `RUN` commands, we ended up with nine layers as opposed to two. The main reason for that is related to the fact that when importing the baseline image, we inherited the imported image characteristics, including the layers. In this case, we used the `FROM` to import the official Python image, which included eight layers and then added the 9th layer by executing the `RUN` commands. You can test it by pulling the baseline image and using the inspect command to review its layers:
+上記のイメージのレイヤー出力からわかるように、`rkrispin/vscode-python:ex1`イメージには9つのレイヤーがあります。各レイヤーはハッシュキー（例：`sha256:...`）で表され、バックエンドにキャッシュされています。ビルド出力では、dockerエンジンが`FROM`と`RUN`コマンドから2つのプロセスをトリガーしたことがわかりましたが、2つではなく9つのレイヤーになりました。その主な理由は、ベースラインイメージをインポートしたときに、レイヤーを含むインポートされたイメージの特性を継承したためです。この場合、`FROM`を使用して8つのレイヤーを含む公式のPythonイメージをインポートし、`RUN`コマンドを実行して9番目のレイヤーを追加しました。ベースラインイメージをプルして、inspectコマンドを使用してそのレイヤーを確認することでテストできます：
 
 ``` shell
 > docker pull python:3.10
@@ -350,9 +350,9 @@ docker.io/library/python:3.10
 }
 ```
 
-### Layers caching
+### レイヤーキャッシング
 
-One of the cons of Docker is the image build time. As the level of complexity of the Dockerfile is higher (e.g., a large number of dependencies), the build time is longer. Sometimes, your build won't execute as expected on the first try. Either some requirements are missing, or something breaks during the build time. This is where the use of caching helps in reducing the image rebuild time. Docker has smart mechanization that identifies if each layer should be built from scratch or can leverage a cached layer and save time. For example, let's add another command to the previous example to install the `vim` editor.  Generally, we can (and should) add it to the same apt-get we are using to install the `curl` package, but for the purpose of showing the layers caching functionality, we will run it separately:
+Dockerの欠点の1つは、イメージのビルド時間です。Dockerfileの複雑さのレベルが高いほど（例：大量の依存関係）、ビルド時間は長くなります。時々、最初の試みでビルドが期待どおりに実行されないことがあります。いくつかの要件が不足しているか、ビルド時に何かが壊れることがあります。ここでキャッシュの使用がイメージの再構築時間の短縮に役立ちます。Dockerには、各レイヤーをゼロから構築すべきか、キャッシュされたレイヤーを活用して時間を節約できるかを識別するスマートなメカニズムがあります。例えば、前の例に別のコマンドを追加して`vim`エディターをインストールしてみましょう。一般的に、`curl`パッケージをインストールするために使用している同じapt-getに追加できます（そして、すべきです）が、レイヤーキャッシング機能を示すために、別々に実行します：
 
 
 `./examples/ex2/Dockerfile`
@@ -368,12 +368,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl
 RUN apt-get update && apt-get install -y --no-install-recommends vim
 ```
 
-We will use the below command to build this image and tag it as `rkrispin/vscode-python:ex2`:
+以下のコマンドを使用してこのイメージを構築し、`rkrispin/vscode-python:ex2`としてタグ付けします：
 
 ``` shell
 docker build . -f ./examples/ex-2/Dockerfile -t rkrispin/vscode-python:ex2 --progress=plain
 ```
-You should expect the following output (if ran the previous build):
+（前のビルドを実行した場合）以下の出力が期待されます：
 
 ``` shell
  => [internal] load build definition from Dockerfile                                                                                                                                     0.0s
@@ -391,9 +391,9 @@ You should expect the following output (if ran the previous build):
  ```
 
 
-As can be noticed from the above build output, the first and second layers already exist from the previous build. Therefore, the docker engine adds their cached layers to the image (as opposed to building them from scratch), and just builds the 3rd layer and installs the vim editor.
+上記のビルド出力からわかるように、最初と2番目のレイヤーは前のビルドからすでに存在しています。したがって、dockerエンジンはそれらのキャッシュされたレイヤーをイメージに追加し（ゼロから構築するのではなく）、3番目のレイヤーだけを構築してvimエディターをインストールします。
 
-**Note:** By default, the build output is concise and short. You can get more detailed output during the build time by adding the `progress` argument and setting it to `plain`:
+**注：** デフォルトでは、ビルド出力は簡潔で短いです。`progress`引数を追加して`plain`に設定することで、ビルド時により詳細な出力を取得できます：
 
 ``` shell
 > docker build . -f ./examples/ex-2/Dockerfile -t rkrispin/vscode-python:ex2 --progress=plain
@@ -424,56 +424,56 @@ As can be noticed from the above build output, the first and second layers alrea
 #7 DONE 0.0s
 ```
 
-Since we already cached the 3rd layer on the previous build, all the layers in the above output are cached, and the run time is less than 1 second.
+前のビルドですでに3番目のレイヤーをキャッシュしているため、上記の出力のすべてのレイヤーがキャッシュされ、実行時間は1秒未満です。
 
-When setting up your Dockerfile, you should be mindful of and strategic about the layers caching process. The order of the layers does matter! The following images demonstrate when the docker engine will use cached layers and when to rebuild them. The first image illustrates the initial build: 
+Dockerfileを設定する際は、レイヤーのキャッシングプロセスについて注意深く、戦略的である必要があります。レイヤーの順序は重要です！以下の画像は、dockerエンジンがキャッシュされたレイヤーを使用する場合と、それらを再構築する場合を示しています。最初の画像は初期ビルドを示しています：
 
 <br>
 <br /><figure>
 <img src="assets/docker layers 1.png" width="100%" align="center"/></a>
-<figcaption> Figure 5 - Illustration of initial build of image. The left side represents the Dockerfile's commands and the right one the corresponding layers</figcaption>
+<figcaption> 図5 - イメージの初期ビルドの図解。左側はDockerfileのコマンドを表し、右側は対応するレイヤーを表します</figcaption>
 </figure>
 
 <br>
 <br />
 
-In this case, we have a Dockerfile with four commands that are translated during the build time into four layers. What will happen if we add a fifth command and place it right after the third one? The docker engine will identify that the first and second commands in the Dockerfile did not change and, therefore, will use the corresponding cached layers (one and two), and rebuild the rest of the layers from scratch:
+この場合、ビルド時に4つのレイヤーに変換される4つのコマンドを持つDockerfileがあります。5番目のコマンドを追加して3番目のコマンドの直後に配置すると何が起こるでしょうか？dockerエンジンは、Dockerfileの最初と2番目のコマンドが変更されていないことを識別し、対応するキャッシュされたレイヤー（1と2）を使用し、残りのレイヤーをゼロから再構築します：
 
 <br>
 <br /><figure>
 <img src="assets/docker layers 2.png" width="100%" align="center"/></a>
-<figcaption> Figure 6 - Illustration of the caching process during the rebuild of an image</figcaption>
+<figcaption> 図6 - イメージの再構築中のキャッシングプロセスの図解</figcaption>
 </figure>
 <br>
 <br />
 
-When planning your Dockerfile, if applicable,  a good practice is to place the commands that will most likely stay the same and keep new updates to the end of the file if possible.
+Dockerfileを計画する際、該当する場合は、ほとんど変わらないコマンドを配置し、新しい更新を可能な限りファイルの最後に保つことがグッドプラクティスです。
 
-That was just the tip of the iceberg, and there is much more to learn about Docker. The next section will explore different methods to run Python inside a container.
+これはDockerの氷山の一角にすぎず、学ぶべきことはまだたくさんあります。次のセクションでは、コンテナ内でPythonを実行するさまざまな方法を探ります。
 
 ## Docker Run
 
-In the previous sections, we saw how to define the image requirements with the `Dockerfile` and build it with the `build` command. This section focuses on running Python inside a container using the `docker run` command.
+前のセクションでは、`Dockerfile`でイメージ要件を定義し、`build`コマンドでビルドする方法を見ました。このセクションでは、`docker run`コマンドを使用してコンテナ内でPythonを実行することに焦点を当てます。
 
-The `docker run` or `run` command enables us to create and run a new container from an image. Typically, the `run` command is used to launch a dockerized application or server or to execute a code following the below syntax:
+`docker run`または`run`コマンドを使用すると、イメージから新しいコンテナを作成して実行できます。通常、`run`コマンドは、以下の構文に従って、dockerized アプリケーションやサーバーを起動したり、コードを実行したりするために使用されます：
 
 ``` shell
 docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
 
-For example, we can use the `run` command with the official Python 3.10 image:
+例えば、公式のPython 3.10イメージで`run`コマンドを使用できます：
 
 ``` shell
 docker run python:3.10 
 ```
 
-Surprisingly (or not), nothing happened. To understand that better, we need to go back to the `Dockerfile`. Generally, images can be used to run:
-- Server
-- Application
+驚くべきことに（または驚くべきではないことに）、何も起こりませんでした。これをより良く理解するには、`Dockerfile`に戻る必要があります。一般的に、イメージは以下を実行するために使用できます：
+- サーバー
+- アプリケーション
 
-In both cases, we use the `Dockerfile` to set and enable launching them during the run time. In the case of a server, we use the `PORT` and `CMD` commands on the `Dockerfile` to set the server's port on the image and launch the server, respectively. We then use the `run` command and add the `-p` (or `--publish list`) option to map the server's port with a local port. Similarly, to launch an application, we use the `CMD` command on the `Dockerfile` to define the launch command during the run time and use the `--interactive` and  `--tty` options to launch the container in interactive mode, which enables us to access the application.
+どちらの場合も、`Dockerfile`を使用して実行時にそれらを起動できるように設定します。サーバーの場合、`Dockerfile`の`PORT`と`CMD`コマンドを使用して、それぞれサーバーのポートを設定し、サーバーを起動します。次に、`run`コマンドを使用して`-p`（または`--publish list`）オプションを追加し、サーバーのポートをローカルポートにマップします。同様に、アプリケーションを起動するには、`Dockerfile`の`CMD`コマンドを使用して実行時の起動コマンドを定義し、`--interactive`と`--tty`オプションを使用してコンテナを対話モードで起動し、アプリケーションにアクセスできるようにします。
 
-Let's now go back to the `python:3.10` image and use the `inspect` command to check if the `CMD` command was defined:
+`python:3.10`イメージに戻り、`inspect`コマンドを使用して`CMD`コマンドが定義されているかどうかを確認しましょう：
 
 ``` shell
 > docker inspect python:3.10 | jq '.[] | .Config.Cmd'
@@ -482,14 +482,14 @@ Let's now go back to the `python:3.10` image and use the `inspect` command to ch
 ]
 ```
 
-**Note:** We used the `jq` library again  to parse out from the JSON output the CMD metadata
+**注：** 再び`jq`ライブラリを使用して、JSON出力からCMDメタデータを解析しました
 
-As you can see, the `CMD` on the `python:3.10` image is set to run the default Python launch command - `python3`, which launches Python during the run time. Let's now add the `--interactive` and  `--tty` options to run the container in an interactive mode:
+ご覧のとおり、`python:3.10`イメージの`CMD`は、デフォルトのPython起動コマンド - `python3`を実行するように設定されており、実行時にPythonを起動します。それでは、`--interactive`と`--tty`オプションを追加して、コンテナを対話モードで実行してみましょう：
 
 ```shell
  docker run --interactive --tty python:3.10 
  ```
-This launches the default Python version on the image. We can then test it by using the `print` command to print `Hello World!`:
+これにより、イメージ上のデフォルトのPythonバージョンが起動されます。次に、`print`コマンドを使用して`Hello World!`を出力してテストできます：
 
 ```python
 Python 3.10.12 (main, Jun 14 2023, 18:40:54) [GCC 12.2.0] on linux
@@ -499,18 +499,18 @@ Hello World!
 >>> 
 ```
 
-## Volume Mounting
+## ボリュームマウント
 
-As you can notice in the above output, the `docker run` command launched the container inside the bash terminal. By default, the container runs in an ephemeral environment, which means that any code we create inside the image is not exportable and will be lost after we stop the container from running. 
+上記の出力でわかるように、`docker run`コマンドはbashターミナル内でコンテナを起動しました。デフォルトでは、コンテナは一時的な環境で実行されます。つまり、イメージ内で作成したコードはエクスポートできず、コンテナの実行を停止すると失われます。
 
 
-A simple solution is to mount a volume with the volume argument. For simplicity, we will go ahead and mount the local folder - `ex3`, where we have the following Python script:
+簡単な解決策は、volume引数でボリュームをマウントすることです。簡単にするために、以下のPythonスクリプトがあるローカルフォルダー - `ex3`をマウントします：
 `hello-world.py`
 ``` python
 print("Hello World!")
 ```
 
-Before launching the container, let's rebuild the image and add the `CMD` instruction to launch the bash terminal inside the container instead of Python. We will use the below `Dockerfile`:
+コンテナを起動する前に、イメージを再構築し、`CMD`命令を追加して、Pythonの代わりにコンテナ内でbashターミナルを起動するようにしましょう。以下の`Dockerfile`を使用します：
 
 `./examples/ex3/Dockerfile`
 ``` Dockerfile
@@ -527,15 +527,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends vim
 CMD ["/bin/sh", "-c", "bash"]
 ```
 
-This will enable us to access the file system and run scripts from the bash terminal.
+これにより、ファイルシステムにアクセスし、bashターミナルからスクリプトを実行できるようになります。
 
-Let's build the image again, but this time, we will use the Dockerfile we just created:
+イメージを再度構築しますが、今回は作成したDockerfileを使用します：
 
 ```shell
 docker build . -f ./examples/ex3/Dockerfile -t rkrispin/vscode-python:ex3
 ```
 
-And then, launch it with the following command:
+そして、以下のコマンドで起動します：
 
 ```
 docker run -v .:/ex3  --interactive --tty rkrispin/vscode-python:ex3
@@ -543,12 +543,12 @@ docker run -v .:/ex3  --interactive --tty rkrispin/vscode-python:ex3
 
 
 
-We will run the command and use the volume argument to map the local folder ex3 as a volume in our container. We can do this by running the following command:
+コマンドを実行し、volume引数を使用してローカルフォルダーex3をコンテナ内のボリュームとしてマップします。以下のコマンドを実行してこれを行うことができます：
 
 ``` shell
 docker run -v ./examples/ex3:/ex3  --interactive --tty python:3.10 
 ```
-Where the `-v` argument maps the local folder `./examples/ex3` to `/my_python_scipts` in our container. This will launch the container and open the bash terminal inside the container. As you can see below, the output of the `ls` command, returns the files and folders to the root folder. This includes the local folder we mounted with the `-v` argument -`my_python_scripts`:
+ここで、`-v`引数はローカルフォルダー`./examples/ex3`をコンテナ内の`/my_python_scipts`にマップします。これによりコンテナが起動し、コンテナ内でbashターミナルが開きます。以下に示すように、`ls`コマンドの出力は、ルートフォルダーへのファイルとフォルダーを返します。これには、`-v`引数でマウントしたローカルフォルダー - `my_python_scripts`が含まれます：
 
 ```shell
 root@8c94db531eb4:/# ls
@@ -561,13 +561,13 @@ Hello World!
 root@8c94db531eb4:/my_python_scipts#
 ```
 
-Using this technique, we can maintain our code locally while running it inside the container. 
+この技術を使用すると、コンテナ内でコードを実行しながら、コードをローカルに保持できます。
 
-## Dockerize AI Agent 
+## AIエージェントのDocker化
 
-So far, we have reviewed how to set up a Dockerfile, build the image, and run it as a container. In this section, we will connect the dots and demonstrate how you can dockerize a simple AI agent and run it inside a container.
+これまで、Dockerfileの設定方法、イメージの構築、コンテナとしての実行方法を確認しました。このセクションでは、点を結び、簡単なAIエージェントをDocker化してコンテナ内で実行する方法を示します。
 
-Let's start by defining a simple Python script that sends a request to the OpenAI API and prints the results:
+まず、OpenAI APIにリクエストを送信し、結果を出力する簡単なPythonスクリプトを定義しましょう：
 
 `./examples/ex4/simple_agent.py`
 ``` python
@@ -583,7 +583,7 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-We will wrap this Python script with the following Dockerfile:
+このPythonスクリプトを以下のDockerfileでラップします：
 `./examples/ex4/Dockerfile`
 
 ``` Dockerfile
@@ -595,30 +595,30 @@ COPY ./examples/ex4/simple_agent.py /app/simple_agent.py
 
 CMD ["python", "/app/simple_agent.py"]
 ```
-We use the `FROM` command to pull the official Python image - version 3.10 slim version (light size). Next, we use the `RUN` command to install the `openai` Python library and then use the `COPY` command to copy the Python script from the local folder to the image file system. Last but not least, we will use the `CMD` command to execute the Python script during the run time of the container. 
+`FROM`コマンドを使用して公式のPythonイメージ - バージョン3.10スリムバージョン（軽量サイズ）をプルします。次に、`RUN`コマンドを使用して`openai` Pythonライブラリをインストールし、`COPY`コマンドを使用してPythonスクリプトをローカルフォルダーからイメージファイルシステムにコピーします。最後に、`CMD`コマンドを使用して、コンテナの実行時にPythonスクリプトを実行します。
 
-Next, we will build the image using the following command:
+次に、以下のコマンドを使用してイメージを構築します：
 
 ``` shell
 docker build . -f ./examples/ex4/Dockerfile -t rkrispin/simple_agent:ex4
 ```
 
-During the run time of the image, we will have to provide the OpenAI API key. As a best practice, you should NEVER store credentials or secrets on the image during the build time. Instead, we will set the API key as an environment variable using the `--env` (or `-e`) argument:
+イメージの実行時に、OpenAI APIキーを提供する必要があります。ベストプラクティスとして、ビルド時に認証情報やシークレットをイメージに保存してはいけません。代わりに、`--env`（または`-e`）引数を使用してAPIキーを環境変数として設定します：
 
 ``` shell
 docker run --env OPENAI_API_KEY=$OPENAI_API_KEY rkrispin/simple_agent:ex4
 ```
-**Note:** You should replace the `OPENAI_API_KEY` with the name of the environment variable that holds your API key.
+**注：** `OPENAI_API_KEY`をAPIキーを保持する環境変数の名前に置き換える必要があります。
 
-And you should expect the following output:
+そして、以下の出力が期待されます：
 
 ``` shell
 The capital of France is Paris.
 ```
 
-### Functionalize the Container 
+### コンテナの機能化
 
-The previous example is limited and not that useful, as it can only answer one question. You can, with small tweaks, make it dynamic, enabling the users to ask questions. Let's start with the Python script:
+前の例は限定的であまり有用ではありません。1つの質問にしか答えられないからです。小さな調整で動的にし、ユーザーが質問できるようにすることができます。Pythonスクリプトから始めましょう：
 
 `./examples/ex5/dynamic_agent.py`
 ```python
@@ -638,9 +638,9 @@ print(f"Question: {question}")
 print(f"Answer: {response.choices[0].message.content}")
 ```
 
-As you can see, we added an environment variable called `QUESTION`, which will be used as input for our agent. The script will print the question and the answer.
+ご覧のとおり、`QUESTION`という環境変数を追加しました。これはエージェントの入力として使用されます。スクリプトは質問と答えを出力します。
 
-Likewise, we will modify the Dockerfile:
+同様に、Dockerfileを変更します：
 ``` Dockerfile
 FROM python:3.10-slim
 
@@ -654,33 +654,32 @@ CMD ["python", "/app/dynamic_agent.py"]
 
 ```
 
-**None:** While it is not a must, it is a good practice to set a default value for the environment variable QUESTION. This way if the user does not provide a value for this variable, it will use the default value. 
+**注：** 必須ではありませんが、環境変数QUESTIONのデフォルト値を設定することは良い習慣です。これにより、ユーザーがこの変数の値を提供しない場合、デフォルト値が使用されます。
 
-Let's build the container:
+コンテナを構築しましょう：
 
 ``` shell
 docker build . -f ./examples/ex5/Dockerfile -t rkrispin/dynamic_agent:ex5
 ```
 
-And run the container and set the question as environment variable:
+そして、コンテナを実行し、質問を環境変数として設定します：
 ```shell
 docker run --env OPENAI_API_KEY=$OPENAI_API_KEY --env QUESTION="What is the capital of United Kingdom"  rkrispin/dynamic_agent:ex5
 ```
 
-This will return the following output:
+これにより以下の出力が返されます：
 
 ```shell
 Question: What is the capital of United Kingdom
 Answer: The capital of the United Kingdom is London.
 ```
 
-## Conclusions
+## 結論
 
-In this tutorial, we reviewed the foundation of Docker. Docker solves a core program of software development - reproducibility. We dived into the process of building images using the `Dockerfile` and saw a simple example of how we can run our code inside a container. Last but not least, we demonstrate how to containerize a simple AI agent inside a container and call the OpenAI API during the runtime.
+このチュートリアルでは、Dockerの基礎を確認しました。Dockerはソフトウェア開発のコアプログラムである再現性を解決します。`Dockerfile`を使用してイメージを構築するプロセスに深く入り込み、コンテナ内でコードを実行する簡単な例を見ました。最後に、簡単なAIエージェントをコンテナ内にコンテナ化し、実行時にOpenAI APIを呼び出す方法を示しました。
 
-This is the tip of the iceberg of what Docker does, and hopefully, it gives you an idea of what you can do with Docker and how to start with it.
+これはDockerが行うことの氷山の一角であり、うまくいけば、Dockerで何ができるか、どのように始めるかのアイデアを提供します。
 
 
 ---
-This tutorial was written by [Rami Krispin](https://www.linkedin.com/in/rami-krispin/)
-
+このチュートリアルは[Rami Krispin](https://www.linkedin.com/in/rami-krispin/)によって書かれました
