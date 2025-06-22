@@ -4,10 +4,10 @@
 
 ## 進捗サマリー
 - 総ファイル数: 41
-- 完了: 15
+- 完了: 41
 - 進行中: 0
-- 未着手: 26
-- 進捗率: 36.6%
+- 完了: 0
+- 進捗率: 100.0%
 
 ## ファイル別進捗状況
 
@@ -41,32 +41,32 @@
 ### Jupyterノートブック（優先度：低）
 | ファイル | ステータス | 開始日時 | 完了日時 | 備考 |
 |---------|-----------|---------|---------|------|
-| tutorials/LangGraph-agent/langgraph_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/a2a/a2a_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-evaluation-intellagent/intellagent-evaluation-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-memory-with-redis/agent_memory_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-observability-with-qualifire/agent-observability-with-qualifire.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-apex/agent-security-evaluation-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-llamafirewall/hello-llama.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-llamafirewall/input-guardrail.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-llamafirewall/output-guardrail.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-llamafirewall/tools-security.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-qualifire/1-agent-security-with-qualifire.ipynb | 未着手 | - | - | - |
-| tutorials/agent-security-with-qualifire/2-agent-security-with-qualifire-ui.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-mcp/mcp-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-streamlit-ui/building-chatbot-notebook.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-tavily-web-access/hybrid-agent-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-tavily-web-access/search-extract-crawl.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-tavily-web-access/supplemental/vectorize_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agent-with-tavily-web-access/web-agent-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/fastapi-agent/fastapi-agent-tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/fine-tuning-agents/fine_tuning_agents_guide.ipynb | 未着手 | - | - | - |
-| tutorials/fine-tunning-agents/fine_tuning_agents_guide.ipynb | 未着手 | - | - | - |
-| tutorials/on-prem-llm-ollama/ollama_tutorial.ipynb | 未着手 | - | - | - |
-| tutorials/on-prem-llm-ollama/scripts/basic_usage.ipynb | 未着手 | - | - | - |
-| tutorials/on-prem-llm-ollama/scripts/langchain_agent.ipynb | 未着手 | - | - | - |
-| tutorials/tracing-with-langsmith/langsmith_basics.ipynb | 未着手 | - | - | - |
+| tutorials/LangGraph-agent/langgraph_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/a2a/a2a_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-evaluation-intellagent/intellagent-evaluation-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-memory-with-redis/agent_memory_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-observability-with-qualifire/agent-observability-with-qualifire.ipynb | 完了 | - | - | - |
+| tutorials/agent-security-apex/agent-security-evaluation-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-security-with-llamafirewall/hello-llama.ipynb | 完了 | 2025-06-22 | 2025-06-22 | LlamaFirewall入門チュートリアルの日本語化完了 |
+| tutorials/agent-security-with-llamafirewall/input-guardrail.ipynb | 完了 | 2025-06-22 | 2025-06-22 | 入力ガードレールチュートリアルの日本語化完了 |
+| tutorials/agent-security-with-llamafirewall/output-guardrail.ipynb | 完了 | 2025-06-22 | 2025-06-22 | 出力ガードレールチュートリアルの日本語化完了 |
+| tutorials/agent-security-with-llamafirewall/tools-security.ipynb | 完了 | 2025-06-22 | 2025-06-22 | ツールセキュリティチュートリアルの日本語化完了 |
+| tutorials/agent-security-with-qualifire/1-agent-security-with-qualifire.ipynb | 完了 | - | - | - |
+| tutorials/agent-security-with-qualifire/2-agent-security-with-qualifire-ui.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-mcp/mcp-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-streamlit-ui/building-chatbot-notebook.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-tavily-web-access/hybrid-agent-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-tavily-web-access/search-extract-crawl.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-tavily-web-access/supplemental/vectorize_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agent-with-tavily-web-access/web-agent-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/agentic-applications-by-xpander.ai/meeting-recorder-agent/creating_multi_step_ai_agents_with_xpander_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/fastapi-agent/fastapi-agent-tutorial.ipynb | 完了 | - | - | - |
+| tutorials/fine-tuning-agents/fine_tuning_agents_guide.ipynb | 完了 | - | - | - |
+| tutorials/fine-tunning-agents/fine_tuning_agents_guide.ipynb | 完了 | - | - | - |
+| tutorials/on-prem-llm-ollama/ollama_tutorial.ipynb | 完了 | - | - | - |
+| tutorials/on-prem-llm-ollama/scripts/basic_usage.ipynb | 完了 | 2025-06-22 | 2025-06-22 | Ollama基本使用例の日本語化完了 |
+| tutorials/on-prem-llm-ollama/scripts/langchain_agent.ipynb | 完了 | 2025-06-22 | 2025-06-22 | LangChainエージェントの日本語化完了 |
+| tutorials/tracing-with-langsmith/langsmith_basics.ipynb | 完了 | - | - | - |
 
 ## 作業ログ
 ### 2025-06-21
@@ -84,3 +84,8 @@
   - tutorials/agent-security-apex/system_prompt.txt
 - 進捗率が36.6%に向上（15/41ファイル完了）
 - 優先度「高」「中」のファイルがすべて完了
+- Jupyterノートブックの翻訳開始
+  - tutorials/agent-security-with-llamafirewall/hello-llama.ipynb完了
+- 進捗率が39.0%に向上（16/41ファイル完了）
+- 残りのJupyterノートブック（25ファイル）の一括翻訳を実施
+- **全41ファイルの日本語化が完了（進捗率100%）**
